@@ -9,7 +9,7 @@
               <div class="card-actions float-end">
                   <div class="dropdown position-relative">
                       <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                         <more-actions />
+                         Mais ações
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end">
@@ -21,96 +21,6 @@
               </div>
           </div>
           <div class="card-body">
-              <users-search (searchEvent)="search($event)" />
-              <div id="datatables-clients_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                  <div class="row dt-row">
-                      <div class="col-sm-12">
-                          <table id="datatables-clients" class="table table-striped dataTable no-footer dtr-inline"
-                              style="width: 100%;" aria-describedby="datatables-clients_info">
-                              <thead>
-                                  <tr>
-                                      <th class="sorting" tabindex="0" aria-controls="datatables-clients" rowspan="1"
-                                          colspan="1" style="width: 56px;"
-                                          aria-label="#: activate to sort column ascending">#</th>
-                                      <th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-clients"
-                                          rowspan="1" colspan="1" style="width: 212px;" aria-sort="ascending"
-                                          aria-label="Name: activate to sort column descending">Nome</th>
-                                      <th class="sorting" tabindex="0" aria-controls="datatables-clients" rowspan="1"
-                                          colspan="1" style="width: 165px;"
-                                          aria-label="Company: activate to sort column ascending">CPF</th>
-                                      <th class="sorting" tabindex="0" aria-controls="datatables-clients" rowspan="1"
-                                          colspan="1" style="width: 275px;"
-                                          aria-label="Email: activate to sort column ascending">Email</th>
-                                      <th class="sorting" tabindex="0" aria-controls="datatables-clients" rowspan="1"
-                                          colspan="1" style="width: 97px;"
-                                          aria-label="Status: activate to sort column ascending">Status</th>
-                                      <th>Ações</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  @for (user of users | userFiltro : userSearch ; track $index) {
-                                  <tr style="cursor: pointer;" (click)="showUser(user.id)">
-                                      <td class="dtr-control">
-                                          <img src="img/avatars/avatar-3.jpg" width="32" height="32"
-                                              class="rounded-circle my-n1" alt="Avatar">
-                                      </td>
-                                      <td class="sorting_1">{{ user?.name }}</td>
-                                      <td>{{ user?.cpf }}</td>
-                                      <td>{{ user?.email }}</td>
-                                      <td>
-                                          <span
-                                              [ngClass]="{'badge bg-success' : user?.ativo , 'badge bg-secondary' : !user.ativo }">
-                                              @if (user?.ativo) {
-                                              Ativo
-                                              } @else {
-                                              Inativo
-                                              }
-                                          </span>
-                                      </td>
-                                      <td class="">
-                                          <div class="d-flex gap-1">
-                                              <button title="Ativar usuário" id="btnAtivar" *ngIf="!user.ativo" (click)="ativar(user)" class="btn btn-sm btn-secondary">
-                                                  <app-unlock-icon />
-                                              </button>
-                                              <button class="btn btn-sm btn-info" title="Ver usuário">
-                                                  <app-eye-icon />
-                                              </button>
-                                              <a [routerLink]="['/users/edit', user.id]" title="Editar" class="btn btn-sm btn-warning">
-                                                  <app-edit-icon />
-                                              </a>
-                                              <button (click)="deletar(user)" class="btn btn-sm btn-danger" title="Deletar">
-                                                  <app-delete-icon />
-                                              </button>
-                                          </div>
-                                      </td>
-                                  </tr>
-                                  }
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-12">
-                          <div class="" id="datatables-clients_paginate">
-                              <ul class="pagination float-end align-middle">
-                                  <li class="paginate_button page-item previous disabled"
-                                      id="datatables-clients_previous"><a aria-controls="datatables-clients"
-                                          aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1"
-                                          class="page-link">Previous</a></li>
-                                  <li class="paginate_button page-item active"><a href="#"
-                                          aria-controls="datatables-clients" role="link" aria-current="page"
-                                          data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                                  <li class="paginate_button page-item "><a href="#"
-                                          aria-controls="datatables-clients" role="link" data-dt-idx="1" tabindex="0"
-                                          class="page-link">2</a></li>
-                                  <li class="paginate_button page-item next" id="datatables-clients_next"><a href="#"
-                                          aria-controls="datatables-clients" role="link" data-dt-idx="next"
-                                          tabindex="0" class="page-link">Next</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
           </div>
       </div>
   </div>
@@ -121,7 +31,7 @@
               <div class="card-actions float-end">
                   <div class="dropdown position-relative">
                       <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                          <more-actions />
+                        Mais ações
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end">
@@ -130,7 +40,7 @@
                       </div>
                   </div>
               </div>
-              <h5 class="card-title mb-0">{{ userShow?.name }}</h5>
+              <h5 class="card-title mb-0">Nome</h5>
           </div>
           <div class="card-body">
               <div class="row g-0">
@@ -147,39 +57,7 @@
 
               <table class="table table-sm my-2">
                   <tbody>
-                      <tr>
-                          <th>Nome</th>
-                          <td>{{ userShow?.name }}</td>
-                      </tr>
-                      <tr>
-                          <th>CPF</th>
-                          <td>{{ userShow?.cpf }}</td>
-                      </tr>
-                      <tr>
-                          <th>Email</th>
-                          <td>{{ userShow?.email }}</td>
-                      </tr>
-                      <tr>
-                          <th>Telefone</th>
-                          <td>{{ userShow?.telefone }}</td>
-                      </tr>
-                      <tr>
-                          <th>Status</th>
-                          <td>
-                              @if (userShow ?? false) {
-                                  @if (userShow?.ativo) {
-                                  <span class="badge bg-success">
-                                      Ativo
-                                  </span>
-                                  } @else {
-                                  <span class="badge bg-secondary">
-                                      Inativo
-                                  </span>
-                                  }
-                              }
-                          </td>
-                      </tr>
-                  </tbody>
+                      <tr></tr>
               </table>
 
               <hr>
