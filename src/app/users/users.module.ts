@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { ListComponent } from './pages/list/list.component';
-import { NavSidebarComponent } from '../shared/components/nav-sidebar';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     UsersRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   declarations: [
     LayoutPageComponent,

@@ -45,4 +45,8 @@ export class CookieService {
   deleteCookie(nome: string, path: string = '/') {
     document.cookie = nome + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=" + path + ";";
   }
+
+  getBearerToken(): string {
+    return this.getCookie('token');
+  }
 }
