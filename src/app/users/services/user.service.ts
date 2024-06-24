@@ -4,6 +4,7 @@ import { User } from '../interfaces/user.interface';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
+import { ApiPaths } from '../../constants/api-path';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<UserReponsePaginated> {
+
     return this.http.get<UserReponsePaginated>(this.apiUrl).pipe(
       tap(res => {
         console.log(res);

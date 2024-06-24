@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Token } from '../interfaces/login-response.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiPaths } from '../../constants/api-path';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,9 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   authenticate(credentials: any): Observable<any> {
+
+    console.log(`${ApiPaths.users.list}`);
+
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(this.apiUrl, credentials, { headers }).pipe(
       tap((response) => {
