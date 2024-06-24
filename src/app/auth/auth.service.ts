@@ -16,7 +16,7 @@ export class AuthService {
     const body = { username, password };
 
     return this.http.post<any>(this.apiUrl, body, { headers }).pipe(
-      catchError(this.handleError) // Lida com erros
+      catchError(this.handleError) 
     );
   }
 
