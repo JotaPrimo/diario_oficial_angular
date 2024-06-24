@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 import { Observable, tap } from 'rxjs';
-import { CookieService } from '../../shared/services/cookie.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,8 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<User> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.cookieService.getBearerToken()
-    });
+
+    console.log(`TOken ${ this.cookieService.get('token') }`);
 
     return this.http.get<User>(this.apiUrl).pipe(
       tap(res => {

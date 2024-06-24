@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth.service';
-import { CookieService } from '../../../shared/services/cookie.service';
+import { AuthService } from '../../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'auth-login-page',
@@ -23,8 +23,8 @@ export class LoginPageComponent implements OnInit {
     this.authService.authenticate(this.username, this.password)
       .subscribe({
         next: (response) => {
-          console.log('Response received:', response);
-          this.cookieService.setCookie('token', response, 0)
+          console.log(response);
+          this.cookieService.set('token', response, 0)
         },
         error: (err) => {
           console.error('Error occurred:', err);
