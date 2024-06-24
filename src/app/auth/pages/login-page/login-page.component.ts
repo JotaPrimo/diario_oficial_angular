@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Token } from '../../interfaces/login-response.interface';
 
 @Component({
   selector: 'auth-login-page',
@@ -8,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginPageComponent implements OnInit {
 
-  username: string = 'jota_santos';
+  username: string = 'caleb_romeo';
   password: string = '12345678';
 
   constructor(
@@ -20,11 +21,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    this.authService.authenticate(this.username, this.password)
+    const credentials = { username: this.username, password: this.password };
+    this.authService.authenticate(credentials)
       .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.cookieService.set('token', response, 0)
+        next: (response: Token) => {
+          console.log(response.token);
+          this.cookieService.set('token', response.token, 60);
         },
         error: (err) => {
           console.error('Error occurred:', err);

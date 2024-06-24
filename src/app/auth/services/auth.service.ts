@@ -1,37 +1,53 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Token } from '../interfaces/login-response.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private apiUrl = 'http://localhost:8082/api/v1/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  authenticate(username: string, password: string): Observable<Token> {
+  authenticate(credentials: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { username, password };
-
-    return this.http.post<Token>(this.apiUrl, body, { headers }).pipe(
+    return this.http.post<any>(this.apiUrl, credentials, { headers }).pipe(
+      tap((response) => {
+        const token = response.token;
+        if (token) {
+          const expirationDate = new Date();
+          expirationDate.setMinutes(expirationDate.getMinutes() + 90); // 90 minutes
+          this.cookieService.set('authToken', token, expirationDate, '/');
+        }
+      }),
       catchError(this.handleError)
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro no lado do cliente
-      errorMessage = `Client-side error: ${error.error.message}`;
-    } else {
-      // Erro no lado do servidor
-      errorMessage = `Server-side error: ${error.status} ${error.message}`;
-    }
-    console.error('Error occurred:', errorMessage);
-    return throwError(errorMessage);
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 
+  getToken(): string | null {
+    return this.cookieService.get('authToken');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== '';
+  }
+
+  logout(): void {
+    this.cookieService.delete('authToken', '/');
+  }
 }

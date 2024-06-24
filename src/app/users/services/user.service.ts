@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { UserReponsePaginated } from '../interfaces/users-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,14 @@ export class UserService {
     private cookieService: CookieService
   ) { }
 
-  getUsers(): Observable<User> {
+  getUsers(): Observable<UserReponsePaginated> {
 
-    console.log(`TOken ${ this.cookieService.get('token') }`);
+    console.log('token bearer');
+    console.log(this.cookieService.get('authToken'));
+    // console.log(this.cookieService.get('token'));
 
-    return this.http.get<User>(this.apiUrl).pipe(
+
+    return this.http.get<UserReponsePaginated>(this.apiUrl).pipe(
       tap(res => {
         console.log(res);
       })
