@@ -5,6 +5,7 @@ import { CardBodyComponent, CardFooterComponent, CardHeaderComponent } from './c
 import { FooterComponent } from './components/footer';
 import { NavSidebarComponent } from './components/nav-sidebar';
 import { NavSuperiorComponent } from './components/nav-superior';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -16,6 +17,9 @@ import { NavSuperiorComponent } from './components/nav-superior';
     FooterComponent,
     NavSidebarComponent,
     NavSuperiorComponent
+  ],
+  imports: [
+    RouterModule
   ],
   exports: [
     CardBodyComponent,

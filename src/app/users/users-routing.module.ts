@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent,
     children: [
-      { path: 'list', component: ListComponent, canActivate: [AuthGuard] },
+      { path: 'list', component: ListComponent, canActivate: [AuthGuard], data: {name: 'UsersList'} },
       { path: '**', redirectTo: 'list' },
     ]
   }
