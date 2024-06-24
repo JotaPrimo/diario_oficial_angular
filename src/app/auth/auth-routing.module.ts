@@ -9,8 +9,8 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent,
     children: [
-      { path: 'login', component: LoginPageComponent },
-      { path: 'reset-password', component: ResetPasswordPageComponent },
+      { path: 'login', component: LoginPageComponent, data: { name: 'login'} },
+      { path: 'reset-password', component: ResetPasswordPageComponent, data: { name: 'reset-password'} },
       { path: '**', redirectTo: 'login' },
     ]
   }

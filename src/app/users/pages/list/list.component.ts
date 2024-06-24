@@ -20,7 +20,6 @@ export class ListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(
       data => {
-        console.log('getUsers listcompent', data.content);
         this.users = data.content;
       },
       err => {
@@ -29,5 +28,4 @@ export class ListComponent implements OnInit {
       }
     )
   }
-
 }

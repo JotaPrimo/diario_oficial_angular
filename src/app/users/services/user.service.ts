@@ -18,12 +18,6 @@ export class UserService {
   ) { }
 
   getUsers(): Observable<UserReponsePaginated> {
-
-    console.log('token bearer');
-    console.log(this.cookieService.get('authToken'));
-    // console.log(this.cookieService.get('token'));
-
-
     return this.http.get<UserReponsePaginated>(this.apiUrl).pipe(
       tap(res => {
         console.log(res);
