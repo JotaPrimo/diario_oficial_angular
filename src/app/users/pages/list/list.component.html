@@ -2,7 +2,9 @@
   <h1 class="h3 mb-3">Usuários</h1>
 </div>
 
-<div class="row">
+<shared-loading #loading *ngIf="loading;"></shared-loading>
+
+<div class="row" *ngIf="!loading">
   <div class="col-xl-12 col-sm-12 col-md-12">
     <div class="card">
       <div class="card-header">
@@ -31,8 +33,14 @@
                   <td>{{ user.username }}</td>
                   <td>{{ user.email }}</td>
                   <td class="d-none d-md-table-cell">{{ user.role }}</td>
-                  <td class="d-none d-md-table-cell">{{ user.statusUsuario }}</td>
-                  <td class="d-none d-md-table-cell">{{ user.createdAt }}</td>
+                  <td class="d-none d-md-table-cell">
+                    <span class="badge text-white font-weight-bold" [ngClass]="{' text-bg-success me-2': isAtivo(user), ' text-bg-warning me-2': !isAtivo(user)}">
+                      {{ user.statusUsuario }}
+                    </span>
+                  </td>
+                  <td class="d-none d-md-table-cell">
+                    {{ user.createdAt }}
+                  </td>
                   <td>
                     <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

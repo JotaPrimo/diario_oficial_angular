@@ -5,6 +5,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { ListComponent } from './pages/list/list.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateComponent } from './pages/create/create.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     LayoutPageComponent,
-    ListComponent
+    ListComponent,
+    CreateComponent
   ]
 })
 export class UsersModule { }

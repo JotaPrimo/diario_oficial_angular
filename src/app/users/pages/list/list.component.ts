@@ -10,6 +10,7 @@ import { User } from '../../interfaces/user.interface';
 export class ListComponent implements OnInit {
 
   public users: User[] = [];
+  public loading: boolean = false;
 
   constructor(private userService: UserService) {}
 
@@ -18,14 +19,22 @@ export class ListComponent implements OnInit {
   }
 
   getUsers() {
+    this.loading = true;
     this.userService.getUsers().subscribe(
       data => {
         this.users = data.content;
+        this.loading = false;
       },
       err => {
         this.users = [];
+        this.loading = false;
         console.log(err);
       }
     )
   }
+
+  isAtivo(user: User): boolean {
+    return this.userService.isAtivo(user);
+  }
+
 }
