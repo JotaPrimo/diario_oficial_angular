@@ -6,6 +6,7 @@ import { FooterComponent } from './components/footer';
 import { NavSidebarComponent } from './components/nav-sidebar';
 import { NavSuperiorComponent } from './components/nav-superior';
 import { RouterModule } from '@angular/router';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     CardFooterComponent,
     CardHeaderComponent,
     FooterComponent,
+    LoadingComponent,
     NavSidebarComponent,
     NavSuperiorComponent
   ],
@@ -27,7 +29,8 @@ import { RouterModule } from '@angular/router';
     CardHeaderComponent,
     FooterComponent,
     NavSidebarComponent,
-    NavSuperiorComponent
+    NavSuperiorComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }

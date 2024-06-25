@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../../interfaces/login-response.interface';
+import { Router } from '@angular/router';
+import { ApiPaths } from '../../../constants/api-path';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'auth-login-page',
@@ -14,7 +17,9 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -27,9 +32,11 @@ export class LoginPageComponent implements OnInit {
         next: (response: Token) => {
           console.log(response.token);
           this.cookieService.set('token', response.token, 60);
+          this.router.navigateByUrl('/users/list')
         },
         error: (err) => {
           console.error('Error occurred:', err);
+          this.messageService.error("Credenciais inválidas");
         }
       });
   }

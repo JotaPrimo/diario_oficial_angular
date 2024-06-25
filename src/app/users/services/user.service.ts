@@ -5,6 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
 import { ApiPaths } from '../../constants/api-path';
+import { statusUsuario } from '../status-usuario.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,13 @@ export class UserService {
       })
     );
   }
+
+  public isAtivo(user: User): boolean {
+    return statusUsuario.ATIVO === user.statusUsuario;
+  }
+
+  public isInativo(user: User): boolean {
+    return statusUsuario.INATIVO === user.statusUsuario;
+  }
+
 }
