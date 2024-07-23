@@ -1,12 +1,9 @@
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders,
-  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { Token } from '../interfaces/login-response.interface';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiPaths } from '../../constants/api-path';
 
