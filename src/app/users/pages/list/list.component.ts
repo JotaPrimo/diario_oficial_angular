@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
       data => {
         this.users = data.content;
         this.loading = false;
+        console.log(this.users);
       },
       err => {
         this.users = [];

@@ -49,7 +49,13 @@ export class AuthService {
   }
 
   checkAuthentication(): Observable<boolean> {
-    return of(!!this.getToken());
+    console.log("token", this.getToken());
+
+    if(this.getToken()) {
+      return of(true)
+    }
+
+    return of(false);
   }
-  
+
 }
