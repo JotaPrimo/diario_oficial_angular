@@ -1,9 +1,6 @@
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiPaths } from '../../constants/api-path';
 
@@ -16,7 +13,6 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   authenticate(credentials: any): Observable<any> {
-
     console.log(`${ApiPaths.users.list}`);
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -44,11 +40,22 @@ export class AuthService {
     return this.cookieService.get('authToken');
   }
 
-  isLoggedIn(): boolean {
-    return this.getToken() !== '';
+  isLoggedIn(): Observable<boolean> {
+    return of(!!this.getToken());
   }
 
   logout(): void {
     this.cookieService.delete('authToken', '/');
   }
+
+  checkAuthentication(): Observable<boolean> {
+    console.log("token", this.getToken());
+
+    if(this.getToken()) {
+      return of(true)
+    }
+
+    return of(false);
+  }
+
 }

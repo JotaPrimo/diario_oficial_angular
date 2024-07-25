@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenService } from './auth/services/token.service';
-import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
+import { AuthInterceptor } from './auth/interceptors/auth.interceptor ';
 
 
 @NgModule({
