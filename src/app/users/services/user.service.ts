@@ -39,9 +39,8 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    console.log("passando por aqui")
+    console.log("passando por aqui ta testand")
     console.log(`${this.apiUrl}/${user.id}/inativar`);
-
 
     this.http.patch(`${this.apiUrl}/${user.id}/inativar`, options)
       .pipe(
