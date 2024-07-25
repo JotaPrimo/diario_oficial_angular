@@ -12,15 +12,15 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canActivate: [PublicGuard],
-    canMatch: [PublicGuard],
+    canActivate: [ PublicGuard ],
+    canMatch: [ PublicGuard ],
   },
   {
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
-    canActivate: [AuthGuard],
-    canMatch: [AuthGuard],
+    canActivate: [ AuthGuard ],
+    canMatch: [ AuthGuard ],
   },
 ];
 

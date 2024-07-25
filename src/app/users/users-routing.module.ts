@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { ListComponent } from './pages/list/list.component';
+
 import { AuthGuard } from '../auth/guards/auth.guard';
+
+import { LayoutPageComponent, ListComponent, CreateComponent } from './pages/index';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       { path: 'list', component: ListComponent, canActivate: [AuthGuard], data: {name: 'UsersList'} },
+      { path: 'create', component: CreateComponent, canActivate: [AuthGuard], data: {name: 'UsersCreate'} },
       { path: '**', redirectTo: 'list' },
     ]
   }
