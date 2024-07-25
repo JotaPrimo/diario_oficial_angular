@@ -53,10 +53,10 @@ export class MessageService {
     });
   }
 
-  confirm(title: string = "Tem certeza ?", message: "Você não poderá reverter isso !") {
+  confirm(title: string = "Tem certeza ?", message:string = "Você não poderá reverter isso !") {
     return Swal.fire({
       title: title,
-      text: "",
+      text: message,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

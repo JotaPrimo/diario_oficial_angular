@@ -8,8 +8,7 @@ import {
   Router,
   UrlSegment,
 } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { map, Observable, tap } from 'rxjs';
+import {  Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({

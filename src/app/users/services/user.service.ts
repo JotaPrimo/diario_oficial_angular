@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
 import { ApiPaths } from '../../constants/api-path';
@@ -15,8 +15,7 @@ export class UserService {
   private apiUrl = 'http://localhost:8082/api/v1/usuarios';
 
   constructor(
-    private http: HttpClient,
-    private cookieService: CookieService
+    private http: HttpClient
   ) { }
 
   getUsers(): Observable<UserReponsePaginated> {
@@ -34,6 +33,23 @@ export class UserService {
 
   public isInativo(user: User): boolean {
     return statusUsuario.INATIVO === user.statusUsuario;
+  }
+
+  public inativarUsuario(user: User) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers };
+
+    console.log("passando por aqui")
+    console.log(`${this.apiUrl}/${user.id}/inativar`);
+
+
+    this.http.patch(`${this.apiUrl}/${user.id}/inativar`, options)
+      .pipe(
+        tap(res => {
+          console.log(res);
+        }),
+      )
+
   }
 
 }
