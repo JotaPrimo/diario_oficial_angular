@@ -1,21 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
-import { Observable, catchError, map, of, tap } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
-import { ApiPaths } from '../../constants/api-path';
 import { statusUsuario } from '../status-usuario.enum';
+import { environments } from '../../../environments/environments';
+import { ErrorHandlerService } from '../../shared/services/error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8082/api/v1/usuarios';
+  private apiUrl = environments.baseUrl + '/usuarios';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private errorHandlerService: ErrorHandlerService
   ) { }
 
   getUsers(): Observable<UserReponsePaginated> {
@@ -25,6 +26,14 @@ export class UserService {
         console.log(res);
       })
     );
+  }
+
+  salvar(user: User): Observable<User> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<User>(this.apiUrl, user, { headers })
+      .pipe(
+        catchError(this.errorHandlerService.handleError)
+      );
   }
 
   public isAtivo(user: User): boolean {
@@ -50,5 +59,4 @@ export class UserService {
       )
 
   }
-
 }
