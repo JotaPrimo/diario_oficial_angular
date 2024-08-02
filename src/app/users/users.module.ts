@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { ListComponent } from './pages/list/list.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateComponent } from './pages/create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { ListComponent, CreateComponent, EditComponent } from './pages/index';
 
 @NgModule({
   imports: [
@@ -19,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     LayoutPageComponent,
     ListComponent,
-    CreateComponent
+    CreateComponent,
+    EditComponent
   ]
 })
 export class UsersModule { }
