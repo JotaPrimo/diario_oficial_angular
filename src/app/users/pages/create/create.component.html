@@ -3,10 +3,20 @@
     <div class="card-header">
       <h3>Novo usuário</h3>
       <p>Preencha todos os dados corretamente</p>
+
+      <div *ngIf="errosApi" class="alert alert-warning alert-dismissible" role="alert">
+        <div class="alert-message">
+          <strong>Erro(s)</strong>
+          <ul>
+            <li>{{ errosApi }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
+
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <label for="username">Username</label>
           <input class="form-control" formControlName="username" type="text" name="username" id="username"
             placeholder="Informe o username">
@@ -14,7 +24,7 @@
             {{ getFieldError('username') }}
           </span>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <label for="email">Email</label>
           <input class="form-control" formControlName="email" type="text" name="email" id="email"
             placeholder="Informe seu email">
@@ -22,7 +32,15 @@
             {{ getFieldError('email') }}
           </span>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
+          <label for="email">Password</label>
+          <input class="form-control" formControlName="password" type="password" name="password" id="password"
+            placeholder="Informe seu password">
+          <span *ngIf="isValidField('password')" class="text-danger">
+            {{ getFieldError('password') }}
+          </span>
+        </div>
+        <div class="col-sm-12 col-md-3">
           <label for="role">Role</label>
           <select class="form-select" formControlName="role" name="role" id="role">
             <option value="" selected disabled>Selecione</option>
@@ -35,8 +53,10 @@
       </div>
     </div>
   </div>
+
   <div class="d-flex gap-1">
-    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+    <button type="submit" *ngIf="formCreate.valid" class="btn btn-sm btn-primary">Salvar</button>
     <button type="button" class="btn btn-sm btn-secondary">Voltar</button>
   </div>
+
 </form>

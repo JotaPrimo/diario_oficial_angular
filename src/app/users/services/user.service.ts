@@ -5,7 +5,7 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
 import { statusUsuario } from '../status-usuario.enum';
 import { environments } from '../../../environments/environments';
-import { ErrorHandlerService } from '../../shared/services/error.service';
+import { ErrorHandlerService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private errorHandlerService: ErrorHandlerService
+    private errorService: ErrorHandlerService
   ) { }
 
   getUsers(): Observable<UserReponsePaginated> {
@@ -30,10 +30,7 @@ export class UserService {
 
   salvar(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<User>(this.apiUrl, user, { headers })
-      .pipe(
-        catchError(this.errorHandlerService.handleError)
-      );
+    return this.http.post<User>(this.apiUrl, user, { headers });
   }
 
   public isAtivo(user: User): boolean {
