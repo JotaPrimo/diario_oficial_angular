@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../services/role.service';
-import { tap } from 'rxjs';
 import { Role } from '../../interfaces/role.interface';
 import { MessageService } from '../../../shared/services/message.service';
 import { UserService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ApiError } from '../../../shared/interfaces/api-error.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'users-create',
@@ -14,10 +15,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CreateComponent implements OnInit {
 
   public roles: Role[] = [];
+  public errosApi: any;
+
 
   public formCreate: FormGroup = this.formBuilder.group({
     username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
     role: ['', [Validators.required]]
   });
 
@@ -25,7 +29,8 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private roleService: RoleService,
     private messageService: MessageService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,17 +44,30 @@ export class CreateComponent implements OnInit {
 
     this.userService.salvar(this.formCreate.value)
       .subscribe(
-        res => {
-          console.log(res);
-        }, error => {
-          // this.errorMessage = `Erro: ${error.message}\nErros: ${JSON.stringify(error.errors)}`;
-          console.error('Erro completo:', error);
-          console.log(error)
-          // this.isLoading = false;
+        {
+          // é uma função anonina regular, por tanto tem seu proprio contexto
+          // por isso devo usar arrapw functions, pois estas não tem seu proprio 'this' do contexto
+          next: ({ username }) => {
+            this.messageService.success(`Usuário ${username} cadastrado com sucesso`);
+            this.router.navigateByUrl('/users/list');
+          },
+          error: ({ error }) => {
+
+            if (error.hasOwnProperty("errors")) {
+              this.errosApi = Object.values(error.errors)
+            }
+
+            if (error.hasOwnProperty("message")) {
+              this.errosApi = error.message;
+            }
+
+            this.messageService.error("Ocorreu um erro");
+          },
+          complete() {
+            console.info("completado");
+          },
         }
       );
-
-    // se salvar limpar form e dar alert
   }
 
   verificarFormValidOnSubmit() {
@@ -91,5 +109,4 @@ export class CreateComponent implements OnInit {
     this.roleService.getRoles()
       .subscribe(res => this.roles = res);
   }
-
 }

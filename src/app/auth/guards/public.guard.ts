@@ -14,7 +14,6 @@ export class PublicGuard implements CanMatch, CanActivate {
   checkAuthStatus(): boolean | Observable<boolean> {
     return this.authService.checkAuthentication().pipe(
       tap((isAutenticated) => {
-        console.log("isAutenticated", isAutenticated);
         if (isAutenticated) this.router.navigate(['./users/list']);
       }),
       map( isAutenticated => !isAutenticated)
