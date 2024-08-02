@@ -47,12 +47,20 @@ export class CreateComponent implements OnInit {
         {
           // é uma função anonina regular, por tanto tem seu proprio contexto
           // por isso devo usar arrapw functions, pois estas não tem seu proprio 'this' do contexto
-          next: ({username}) => {
+          next: ({ username }) => {
             this.messageService.success(`Usuário ${username} cadastrado com sucesso`);
             this.router.navigateByUrl('/users/list');
           },
-          error: (error) => {
-            this.errosApi = Object.values(error.errors)
+          error: ({ error }) => {
+
+            if (error.hasOwnProperty("errors")) {
+              this.errosApi = Object.values(error.errors)
+            }
+
+            if (error.hasOwnProperty("message")) {
+              this.errosApi = error.message;
+            }
+
             this.messageService.error("Ocorreu um erro");
           },
           complete() {
