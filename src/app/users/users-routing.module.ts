@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../auth/guards/auth.guard';
 
-import { LayoutPageComponent, ListComponent, CreateComponent } from './pages/index';
+import { LayoutPageComponent, ListComponent, CreateComponent, EditComponent } from './pages/index';
 
 const routes: Routes = [
   {
@@ -12,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'list', component: ListComponent, canActivate: [AuthGuard], data: {name: 'UsersList'} },
       { path: 'create', component: CreateComponent, canActivate: [AuthGuard], data: {name: 'UsersCreate'} },
+      { path: 'edit/:id', component: EditComponent, canActivate: [AuthGuard], data: {name: 'UsersEdit'} },
       { path: '**', redirectTo: 'list' },
     ]
   }

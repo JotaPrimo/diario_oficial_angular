@@ -7,6 +7,8 @@ import { UserService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiError } from '../../../shared/interfaces/api-error.interface';
 import { Router } from '@angular/router';
+import { ErrorHandlerService } from '../../services/error.service';
+import { ExceptionBackEnd } from '../../../shared/interfaces/exception-back-end.interface';
 
 @Component({
   selector: 'users-create',
@@ -20,7 +22,7 @@ export class CreateComponent implements OnInit {
 
   public formCreate: FormGroup = this.formBuilder.group({
     username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
-    email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
+    email: ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(250)]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
     role: ['', [Validators.required]]
   });
@@ -30,7 +32,8 @@ export class CreateComponent implements OnInit {
     private roleService: RoleService,
     private messageService: MessageService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -51,15 +54,9 @@ export class CreateComponent implements OnInit {
             this.messageService.success(`Usuário ${username} cadastrado com sucesso`);
             this.router.navigateByUrl('/users/list');
           },
-          error: ({ error }) => {
+          error: (error: HttpErrorResponse) => {
 
-            if (error.hasOwnProperty("errors")) {
-              this.errosApi = Object.values(error.errors)
-            }
-
-            if (error.hasOwnProperty("message")) {
-              this.errosApi = error.message;
-            }
+            this.errosApi = this.errorService.handleError(error);
 
             this.messageService.error("Ocorreu um erro");
           },
@@ -97,6 +94,9 @@ export class CreateComponent implements OnInit {
         case 'required':
           return 'Este campo es requerido';
 
+          case 'email':
+          return 'Deve ser um email';
+
         case 'minlength':
           return `Mínimo ${errors['minlength'].requiredLength} caracters.`;
       }
@@ -109,4 +109,5 @@ export class CreateComponent implements OnInit {
     this.roleService.getRoles()
       .subscribe(res => this.roles = res);
   }
+  
 }
