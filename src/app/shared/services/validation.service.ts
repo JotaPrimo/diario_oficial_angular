@@ -3,8 +3,12 @@ import { FormGroup } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
-  
-  constructor(private form: FormGroup) {}
+
+  private form: FormGroup;
+
+  constructor(form: FormGroup) {
+    this.form = form
+  }
 
   isValidField(field: string): boolean | null {
     let hasErrors = this.form.controls[field].errors;
@@ -35,6 +39,15 @@ export class ValidationService {
     }
 
     return null;
+  }
+
+  verificarFormInValidOnSubmit(): boolean {
+    if (this.form.invalid) {
+      // caso form seja invalido bloquear requisicao
+      this.form.markAllAsTouched();
+      return true;
+    }
+    return false;
   }
 
 }
