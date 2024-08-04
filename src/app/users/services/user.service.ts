@@ -6,6 +6,7 @@ import { UserReponsePaginated } from '../interfaces/users-response.interface';
 import { statusUsuario } from '../status-usuario.enum';
 import { environments } from '../../../environments/environments';
 import { ErrorHandlerService } from './error.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,18 @@ export class UserService {
     );
   }
 
+  findById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+
   salvar(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<User>(this.apiUrl, user, { headers });
+  }
+
+  update(user: FormGroup, id: string): Observable<User> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.patch<User>(`${this.apiUrl}/${id}`, user, { headers });
   }
 
   public isAtivo(user: User): boolean {
