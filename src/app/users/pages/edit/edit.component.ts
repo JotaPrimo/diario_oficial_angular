@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
   public roles: Role[] = [];
   public errosApi: any;
   public user?: User;
-  public formValidationService: ValidationService;
+  public formValidationService: ValidationService = new ValidationService(new FormGroup({}));
 
 
   public formEdit: FormGroup = this.formBuilder.group({
@@ -39,13 +39,14 @@ export class EditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {
     // não é boa pratica
-    this.formValidationService = new ValidationService(this.formEdit);
+    // this.formValidationService = new ValidationService(this.formEdit);
   }
 
   ngOnInit() {
     this.getRoles();
     this.formEdit.reset();
     this.setUserEdit();
+    this.formValidationService = new ValidationService(this.formEdit);
   }
 
   onSave(): void {
