@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUsers();
@@ -26,13 +26,15 @@ export class ListComponent implements OnInit {
   getUsers() {
     this.loading = true;
     this.userService.getUsers().subscribe(
-      data => {
-        this.users = data.content;
-        this.loading = false;
-      },
-      err => {
-        this.users = [];
-        this.loading = false;
+      {
+        next: (data) => {
+          this.users = data.content;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.users = [];
+          this.loading = false;
+        }
       }
     )
   }
@@ -48,7 +50,7 @@ export class ListComponent implements OnInit {
 
     // this.messageService.success("Usuário inativado com sucesso")
 
-    if(resConfirm.isConfirmed) {
+    if (resConfirm) {
       try {
         await this.userService.inativarUsuario(user)
 
@@ -60,10 +62,30 @@ export class ListComponent implements OnInit {
     }
   }
 
-  ativarUsuario(user: User) {
+  async ativarUsuario(user: User) {
     let message = `Inativar usuário ${user.username}?`;
+    let isConfirmed = await this.messageService.confirm("Atenção", message);
 
-    this.messageService.confirm("Atenção", message)
+    if (isConfirmed) {
+      this.userService.inativarUsuario(user)
+        .subscribe(
+          {
+            next: (res) => {
+             this.getUsers();
+              this.messageService.success(`Usuário ${user.username} inativado com sucesso`);
+            },
+            error: (error) => {
+              this.messageService.warning("Ocorreu um erro");
+            },
+            complete: () => {
+              this.messageService.info("Operação concluída")
+              return;
+            }
+          }
+        );
+    } else {
+      this.messageService.info("Operação cancelada")
+    }
   }
 
 }

@@ -58,12 +58,6 @@ export class UserService {
     console.log("passando por aqui ta testand")
     console.log(`${this.apiUrl}/${user.id}/inativar`);
 
-    this.http.patch(`${this.apiUrl}/${user.id}/inativar`, options)
-      .pipe(
-        tap(res => {
-          console.log(res);
-        }),
-      )
-
+    return this.http.patch(`${this.apiUrl}/${user.id}/inativar`, options);
   }
 }

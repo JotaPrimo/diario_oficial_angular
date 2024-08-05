@@ -53,8 +53,8 @@ export class MessageService {
     });
   }
 
-  confirm(title: string = "Tem certeza ?", message:string = "Você não poderá reverter isso !") {
-    return Swal.fire({
+  async confirm(title: string = "Tem certeza ?", message: string = "Você não poderá reverter isso !") {
+    const res = await Swal.fire({
       title: title,
       text: message,
       icon: "warning",
@@ -64,5 +64,7 @@ export class MessageService {
       confirmButtonText: "Confirmar",
       cancelButtonText: "Cancelar"
     });
+    
+    return res.isConfirmed;
   }
 }
