@@ -51,14 +51,14 @@
                     </a>
 
                     <a href="javascript:void(0);" (click)="ativarUsuario(user)">
-                      <i class="fas fa-sync fa-2x"
-                        *ngIf="!isAtivo(user); else inativar_user"
-                        title="Ativar usuário">
+                      <i class="fas fa-sync fa-2x" *ngIf="!isAtivo(user); else inativar_user" title="Ativar usuário">
                       </i>
                     </a>
 
                     <ng-template #inativar_user>
-                      <i class="fas fa-trash fa-2x" (click)="inativarUsuario(user)" title="Inativar usuário"></i>
+                      <a href="javascript:void(0);" (click)="inativarUsuario(user)">
+                        <i class="fas fa-trash fa-2x" (click)="inativarUsuario(user)" title="Inativar usuário"></i>
+                      </a>
                     </ng-template>
                   </td>
                 </tr>

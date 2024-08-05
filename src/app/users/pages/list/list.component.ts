@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { MessageService } from '../../../shared/services/message.service';
-import { catchError, map, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'users-list',
@@ -44,45 +45,46 @@ export class ListComponent implements OnInit {
   }
 
   async inativarUsuario(user: User) {
-    const message = `Inativar usuário ${user.username}?`;
+    console.log("inativarUsuario");
 
-    const resConfirm = await this.messageService.confirm("Atenção", message)
+    let messageInativar = `Inativar usuário ${user.username}?`;
+    let isConfirmed = await this.messageService.confirm("Atenção", messageInativar);
 
-    // this.messageService.success("Usuário inativado com sucesso")
-
-    if (resConfirm) {
-      try {
-        await this.userService.inativarUsuario(user)
-
-      } catch (error) {
-        this.messageService.error("Erro ao inativar usuário");
-        console.error(error);
-        return;
-      }
+    if (isConfirmed) {
+      this.userService.inativarUsuario(user)
+        .pipe(
+          tap(() => this.getUsers()),
+          catchError((err: HttpErrorResponse) => {
+            console.log(`Error inativarUsuario : ${err}`);
+            this.messageService.warning("Ocorreu um erro");
+            return of();
+          })
+        ).subscribe(() => {
+          this.messageService.success(`Usuário ${user.username} inativado com sucesso`)
+          return;
+        });
+    } else {
+      this.messageService.info("Operação cancelada")
     }
   }
 
   async ativarUsuario(user: User) {
-    let message = `Inativar usuário ${user.username}?`;
+    let message = `Ativar usuário ${user.username}?`;
     let isConfirmed = await this.messageService.confirm("Atenção", message);
 
     if (isConfirmed) {
-      this.userService.inativarUsuario(user)
-        .subscribe(
-          {
-            next: (res) => {
-             this.getUsers();
-              this.messageService.success(`Usuário ${user.username} inativado com sucesso`);
-            },
-            error: (error) => {
-              this.messageService.warning("Ocorreu um erro");
-            },
-            complete: () => {
-              this.messageService.info("Operação concluída")
-              return;
-            }
-          }
-        );
+      this.userService.ativarUsuario(user)
+        .pipe(
+          tap(() => this.getUsers()),
+          catchError((err: HttpErrorResponse) => {
+            console.log(`Error inatrivar : ${err}`);
+            this.messageService.warning("Ocorreu um erro");
+            return of();
+          })
+        ).subscribe(() => {
+          this.messageService.success(`Usuário ${user.username} ativado com sucesso`)
+          return;
+        });
     } else {
       this.messageService.info("Operação cancelada")
     }

@@ -55,9 +55,14 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    console.log("passando por aqui ta testand")
-    console.log(`${this.apiUrl}/${user.id}/inativar`);
-
     return this.http.patch(`${this.apiUrl}/${user.id}/inativar`, options);
   }
+
+  public ativarUsuario(user: User) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers };
+
+    return this.http.patch(`${this.apiUrl}/${user.id}/ativar`, options);
+  }
+
 }
