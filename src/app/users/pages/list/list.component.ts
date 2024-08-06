@@ -109,8 +109,5 @@ export class ListComponent implements OnInit {
       ).subscribe();
   }
 
-  clearFilters(): void {
-    this.getUsers();
-  }
 
 }
