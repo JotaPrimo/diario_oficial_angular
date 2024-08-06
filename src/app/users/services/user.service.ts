@@ -20,9 +20,9 @@ export class UserService {
     private errorService: ErrorHandlerService
   ) { }
 
-  getUsers(): Observable<UserReponsePaginated> {
+  getUsers(params: string = ''): Observable<UserReponsePaginated> {
 
-    return this.http.get<UserReponsePaginated>(this.apiUrl).pipe(
+    return this.http.get<UserReponsePaginated>(`${this.apiUrl + params}`).pipe(
       tap(res => {
         console.log(res);
       })

@@ -2,6 +2,8 @@
   <h1 class="h3 mb-3">Usuários</h1>
 </div>
 
+<users-search (search)="onSearch($event)" (clearFiltersEvent)="clearFilters()"></users-search>
+
 <shared-loading #loading *ngIf="loading;"></shared-loading>
 
 <div class="row" *ngIf="!loading">

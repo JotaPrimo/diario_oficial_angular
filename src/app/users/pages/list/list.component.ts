@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { MessageService } from '../../../shared/services/message.service';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserReponsePaginated } from '../../interfaces/users-response.interface';
 
 @Component({
   selector: 'users-list',
@@ -88,6 +89,28 @@ export class ListComponent implements OnInit {
     } else {
       this.messageService.info("Operação cancelada")
     }
+  }
+
+  onSearch(searchTerms: Object): void {
+    const paramsQuery = Object.entries(searchTerms)
+      .filter(([_, valor]) => !(typeof valor === "string" && valor.length === 0))
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&")
+
+      this.userService.getUsers(`?${paramsQuery}`).pipe(
+        switchMap((data: UserReponsePaginated) => {
+          this.users = data.content;
+          return of(data);
+        }),
+        catchError(err => {
+          console.error('Error occurred:', err);
+          return of(null);
+        })
+      ).subscribe();
+  }
+
+  clearFilters(): void {
+    this.getUsers();
   }
 
 }
