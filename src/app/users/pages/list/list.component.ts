@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { MessageService } from '../../../shared/services/message.service';
@@ -11,24 +11,27 @@ import { UserReponsePaginated } from '../../interfaces/users-response.interface'
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
   public users: User[] = [];
   public loading: boolean = false;
-
-
 
   constructor(
     private userService: UserService,
     private messageService: MessageService
   ) { }
 
+  ngOnDestroy(): void {
+
+  }
+
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers() {
-    this.loading = true;
+    this.initLoading();
+
     this.userService.getUsers().subscribe(
       {
         next: (data) => {
@@ -95,6 +98,8 @@ export class ListComponent implements OnInit {
   }
 
   onSearch(searchTerms: Object): void {
+    this.initLoading();
+
     const paramsQuery = Object.entries(searchTerms)
       .filter(([_, valor]) => !(typeof valor === "string" && valor.length === 0) || valor == null)
       .map(([key, value]) => `${key}=${value}`)
@@ -103,6 +108,7 @@ export class ListComponent implements OnInit {
       this.userService.getUsers(`?${paramsQuery}`).pipe(
         switchMap((data: UserReponsePaginated) => {
           this.users = data.content;
+          this.completeLoadingData();
           return of(data);
         }),
         catchError(err => {
@@ -110,6 +116,7 @@ export class ListComponent implements OnInit {
           return of(null);
         })
       ).subscribe();
+
   }
 
   clearFilters(): void {
@@ -118,5 +125,12 @@ export class ListComponent implements OnInit {
     this.getUsers();
   }
 
+  initLoading(): void {
+    this.loading = true;
+  }
+
+  completeLoadingData(): void {
+    this.loading = false;
+  }
 
 }
