@@ -16,6 +16,8 @@ export class ListComponent implements OnInit {
   public users: User[] = [];
   public loading: boolean = false;
 
+
+
   constructor(
     private userService: UserService,
     private messageService: MessageService
@@ -30,11 +32,12 @@ export class ListComponent implements OnInit {
     this.userService.getUsers().subscribe(
       {
         next: (data) => {
-          this.users = data.content;
-          this.loading = false;
+          this.users = data.content
         },
         error: (error) => {
           this.users = [];
+        },
+        complete: () => {
           this.loading = false;
         }
       }
@@ -93,7 +96,7 @@ export class ListComponent implements OnInit {
 
   onSearch(searchTerms: Object): void {
     const paramsQuery = Object.entries(searchTerms)
-      .filter(([_, valor]) => !(typeof valor === "string" && valor.length === 0))
+      .filter(([_, valor]) => !(typeof valor === "string" && valor.length === 0) || valor == null)
       .map(([key, value]) => `${key}=${value}`)
       .join("&")
 
@@ -107,6 +110,12 @@ export class ListComponent implements OnInit {
           return of(null);
         })
       ).subscribe();
+  }
+
+  clearFilters(): void {
+    console.log("clearFilters");
+
+    this.getUsers();
   }
 
 

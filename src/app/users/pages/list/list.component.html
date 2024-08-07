@@ -2,11 +2,11 @@
   <h1 class="h3 mb-3">Usuários</h1>
 </div>
 
-<users-search (search)="onSearch($event)"></users-search>
+<users-search (search)="onSearch($event)" (clearFiltersEvent)="clearFilters()"></users-search>
 
 <shared-loading #loading *ngIf="loading;"></shared-loading>
 
-<div class="row" *ngIf="!loading">
+<div class="row mt-3" *ngIf="!loading">
   <div class="col-xl-12 col-sm-12 col-md-12">
     <div class="card">
       <div class="card-header">

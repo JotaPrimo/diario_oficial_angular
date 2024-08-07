@@ -16,8 +16,9 @@
         </div>
         <div class="col">
           <label for="role">Role</label>
-          <select formControlName="role" id="role" class="form-select">
-            <option value="">Selecione...</option>
+          <select formControlName="role" class="form-select">
+            <option value="" selected disabled>Selecione</option>
+            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
           </select>
         </div>
         <div class="col">
@@ -29,8 +30,8 @@
       </div>
     </div>
   </div>
-  <div class="mb-2">
+  <div class="d-flex gap-1">
     <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
-    <button type="button" class="btn btn-sm btn-secondary">Limpar filtros</button>
+    <button type="button" (click)="clearFilters()" class="btn btn-sm btn-secondary ml-2">Limpar filtros</button>
   </div>
 </form>
