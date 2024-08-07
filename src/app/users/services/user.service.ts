@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { UserReponsePaginated } from '../interfaces/users-response.interface';
-import { statusUsuario } from '../status-usuario.enum';
 import { environments } from '../../../environments/environments';
 import { ErrorHandlerService } from './error.service';
 import { FormGroup } from '@angular/forms';
+import { EnumStatusUsuario } from '../enums/status-usuario.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +44,11 @@ export class UserService {
   }
 
   public isAtivo(user: User): boolean {
-    return statusUsuario.ATIVO === user.statusUsuario;
+    return EnumStatusUsuario.ATIVO === user.statusUsuario;
   }
 
   public isInativo(user: User): boolean {
-    return statusUsuario.INATIVO === user.statusUsuario;
+    return EnumStatusUsuario.INATIVO === user.statusUsuario;
   }
 
   public inativarUsuario(user: User) {

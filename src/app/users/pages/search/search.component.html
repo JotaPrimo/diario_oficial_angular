@@ -22,9 +22,10 @@
           </select>
         </div>
         <div class="col">
-          <label for="status">Status</label>
-          <select id="status" formControlName="status" class="form-select">
-            <option value="">Selecione...</option>
+          <label for="statusUsuario">Status</label>
+          <select id="statusUsuario" formControlName="statusUsuario" class="form-select">
+            <option value="" selected disabled>Selecione...</option>
+            <option *ngFor="let status of allStatus" [value]="status">{{ status }}</option>
           </select>
         </div>
       </div>

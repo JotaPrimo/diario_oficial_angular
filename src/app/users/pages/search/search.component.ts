@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../interfaces/role.interface';
+import { EnumStatusUsuario } from '../../enums/status-usuario.enum';
 
 @Component({
   selector: 'users-search',
@@ -10,6 +11,7 @@ import { Role } from '../../interfaces/role.interface';
 export class SearchComponent implements OnInit {
 
   public roles: Role[] = [];
+  public allStatus: EnumStatusUsuario[] = [];
 
   @Output() search = new EventEmitter<any>();
   @Output() clearFiltersEvent = new EventEmitter<any>();
@@ -27,10 +29,11 @@ export class SearchComponent implements OnInit {
       username: [''],
       email: [''],
       role: [''],
-      status: ['']
+      statusUsuario: ['']
     });
 
     this.getRoles();
+    this.getEnumsStatusUsuario();
   }
 
   onSearch() {
@@ -50,6 +53,14 @@ export class SearchComponent implements OnInit {
         next: (data) => this.roles = data,
         error: (error) => console.log(error)
       });
+  }
+
+  getEnumsStatusUsuario(): void {
+    this.allStatus = [
+      EnumStatusUsuario.ATIVO,
+      EnumStatusUsuario.INATIVO,
+      EnumStatusUsuario.SUSPENSO,
+    ];
   }
 
 }
