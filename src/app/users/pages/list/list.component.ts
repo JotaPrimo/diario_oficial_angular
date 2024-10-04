@@ -116,7 +116,6 @@ export class ListComponent implements OnInit, OnDestroy {
           return of(null);
         })
       ).subscribe();
-
   }
 
   clearFilters(): void {
