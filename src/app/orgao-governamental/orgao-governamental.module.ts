@@ -6,11 +6,13 @@ import { ListComponent, CreateComponent, EditComponent, ShowComponent, SearchCom
 
 /** Importar as rotas */
 import { OrgaoGovernamentalRoutes } from './orgao-governamental.routing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     OrgaoGovernamentalRoutes
   ],
   declarations: [

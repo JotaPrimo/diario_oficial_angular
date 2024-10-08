@@ -1,3 +1,38 @@
-<p>
-  orgao-governamental-create works!
-</p>
+<div class="d-flex justify-content-between">
+  <h1 class="h3 mb-3">Orgãos Governamentais</h1>
+</div>
+
+
+<div class="row">
+  <form action="#" [formGroup]="form" (submit)="handleSave()">
+    <div class="card">
+      <div class="card-header">Listagem de recursos</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <label for="name">Tipo</label>
+            <select class="form-select">
+              <option value="">Selecione</option>
+              <option *ngFor="let item of getTiposOrgaos()" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" name="nome" id="name" placeholder="Nome">
+          </div>
+          <div class="col">
+            <label for="cnpj">CNPJ</label>
+            <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mt-2">
+      <button type="submit" [disabled]="!form.valid" class="btn-sm">Salvar</button>
+    </div>
+  </form>
+</div>
+
+<code>
+  Form valid: {{ form.valid | json }}
+</code>
