@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { MessageService } from '../../../shared/services/message.service';
-import { catchError, map, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserReponsePaginated } from '../../interfaces/users-response.interface';
 
 @Component({
   selector: 'users-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
   public users: User[] = [];
   public loading: boolean = false;
@@ -17,22 +19,30 @@ export class ListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private messageService: MessageService
-  ) {}
+  ) { }
+
+  ngOnDestroy(): void {
+
+  }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers() {
-    this.loading = true;
+    this.initLoading();
+
     this.userService.getUsers().subscribe(
-      data => {
-        this.users = data.content;
-        this.loading = false;
-      },
-      err => {
-        this.users = [];
-        this.loading = false;
+      {
+        next: (data) => {
+          this.users = data.content
+        },
+        error: (error) => {
+          this.users = [];
+        },
+        complete: () => {
+          this.loading = false;
+        }
       }
     )
   }
@@ -42,28 +52,84 @@ export class ListComponent implements OnInit {
   }
 
   async inativarUsuario(user: User) {
-    const message = `Inativar usuário ${user.username}?`;
+    console.log("inativarUsuario");
 
-    const resConfirm = await this.messageService.confirm("Atenção", message)
+    let messageInativar = `Inativar usuário ${user.username}?`;
+    let isConfirmed = await this.messageService.confirm("Atenção", messageInativar);
 
-    // this.messageService.success("Usuário inativado com sucesso")
-
-    if(resConfirm.isConfirmed) {
-      try {
-        await this.userService.inativarUsuario(user)
-
-      } catch (error) {
-        this.messageService.error("Erro ao inativar usuário");
-        console.error(error);
-        return;
-      }
+    if (isConfirmed) {
+      this.userService.inativarUsuario(user)
+        .pipe(
+          tap(() => this.getUsers()),
+          catchError((err: HttpErrorResponse) => {
+            console.log(`Error inativarUsuario : ${err}`);
+            this.messageService.warning("Ocorreu um erro");
+            return of();
+          })
+        ).subscribe(() => {
+          this.messageService.success(`Usuário ${user.username} inativado com sucesso`)
+          return;
+        });
+    } else {
+      this.messageService.info("Operação cancelada")
     }
   }
 
-  ativarUsuario(user: User) {
-    let message = `Inativar usuário ${user.username}?`;
+  async ativarUsuario(user: User) {
+    let message = `Ativar usuário ${user.username}?`;
+    let isConfirmed = await this.messageService.confirm("Atenção", message);
 
-    this.messageService.confirm("Atenção", message)
+    if (isConfirmed) {
+      this.userService.ativarUsuario(user)
+        .pipe(
+          tap(() => this.getUsers()),
+          catchError((err: HttpErrorResponse) => {
+            console.log(`Error inatrivar : ${err}`);
+            this.messageService.warning("Ocorreu um erro");
+            return of();
+          })
+        ).subscribe(() => {
+          this.messageService.success(`Usuário ${user.username} ativado com sucesso`)
+          return;
+        });
+    } else {
+      this.messageService.info("Operação cancelada")
+    }
+  }
+
+  onSearch(searchTerms: Object): void {
+    this.initLoading();
+
+    const paramsQuery = Object.entries(searchTerms)
+      .filter(([_, valor]) => !(typeof valor === "string" && valor.length === 0) || valor == null)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&")
+
+      this.userService.getUsers(`?${paramsQuery}`).pipe(
+        switchMap((data: UserReponsePaginated) => {
+          this.users = data.content;
+          this.completeLoadingData();
+          return of(data);
+        }),
+        catchError(err => {
+          console.error('Error occurred:', err);
+          return of(null);
+        })
+      ).subscribe();
+  }
+
+  clearFilters(): void {
+    console.log("clearFilters");
+
+    this.getUsers();
+  }
+
+  initLoading(): void {
+    this.loading = true;
+  }
+
+  completeLoadingData(): void {
+    this.loading = false;
   }
 
 }

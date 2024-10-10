@@ -9,6 +9,7 @@ import { ApiError } from '../../../shared/interfaces/api-error.interface';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from '../../services/error.service';
 import { ExceptionBackEnd } from '../../../shared/interfaces/exception-back-end.interface';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'users-create',
@@ -18,6 +19,7 @@ export class CreateComponent implements OnInit {
 
   public roles: Role[] = [];
   public errosApi: any;
+  public formValidationService: ValidationService;
 
 
   public formCreate: FormGroup = this.formBuilder.group({
@@ -34,7 +36,9 @@ export class CreateComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private errorService: ErrorHandlerService
-  ) { }
+  ) {
+    this.formValidationService = new ValidationService(this.formCreate);
+  }
 
   ngOnInit() {
     this.getRoles();
@@ -68,46 +72,23 @@ export class CreateComponent implements OnInit {
   }
 
   verificarFormValidOnSubmit() {
-    if (this.formCreate.invalid) {
-      // caso form seja invalido bloquear requisicao
-      this.formCreate.markAllAsTouched();
+    if (this.formValidationService.verificarFormInValidOnSubmit()) {
       this.messageService.info("Preencha todos os dados corretamente");
-      return;
     }
   }
 
   isValidField(field: string): boolean | null {
-    let hasErrors = this.formCreate.controls[field].errors;
-    let touched = this.formCreate.controls[field].touched;
-
-    return hasErrors && touched;
+    return this.formValidationService.isValidField(field);
   }
 
+
   getFieldError(field: string): string | null {
-
-    if (!this.formCreate.controls[field]) return null;
-
-    const errors = this.formCreate.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return 'Este campo es requerido';
-
-          case 'email':
-          return 'Deve ser um email';
-
-        case 'minlength':
-          return `Mínimo ${errors['minlength'].requiredLength} caracters.`;
-      }
-    }
-
-    return null;
+    return this.formValidationService.getFieldError(field);
   }
 
   getRoles() {
     this.roleService.getRoles()
       .subscribe(res => this.roles = res);
   }
-  
+
 }

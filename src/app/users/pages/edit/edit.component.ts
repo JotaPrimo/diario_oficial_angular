@@ -4,9 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../services/role.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../services/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../../interfaces/user.interface';
+import { switchMap } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'users-edit',
@@ -16,12 +19,13 @@ export class EditComponent implements OnInit {
 
   public roles: Role[] = [];
   public errosApi: any;
+  public user?: User;
+  public formValidationService: ValidationService = new ValidationService(new FormGroup({}));
 
 
   public formEdit: FormGroup = this.formBuilder.group({
     username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(250)]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
     role: ['', [Validators.required]]
   });
 
@@ -31,25 +35,33 @@ export class EditComponent implements OnInit {
     private messageService: MessageService,
     private userService: UserService,
     private router: Router,
-    private errorService: ErrorHandlerService
-  ) { }
+    private errorService: ErrorHandlerService,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    // não é boa pratica
+    // this.formValidationService = new ValidationService(this.formEdit);
+  }
 
   ngOnInit() {
     this.getRoles();
     this.formEdit.reset();
+    this.setUserEdit();
+    this.formValidationService = new ValidationService(this.formEdit);
   }
 
   onSave(): void {
 
+    const id: any = this.activatedRoute.snapshot.paramMap.get('id');
+
     this.verificarFormValidOnSubmit();
 
-    this.userService.salvar(this.formEdit.value)
+    this.userService.update(this.formEdit.value, id)
       .subscribe(
         {
           // é uma função anonina regular, por tanto tem seu proprio contexto
           // por isso devo usar arrapw functions, pois estas não tem seu proprio 'this' do contexto
           next: ({ username }) => {
-            this.messageService.success(`Usuário ${username} cadastrado com sucesso`);
+            this.messageService.success(`Usuário ${username} atualizado com sucesso`);
             this.router.navigateByUrl('/users/list');
           },
           error: (error: HttpErrorResponse) => {
@@ -75,37 +87,38 @@ export class EditComponent implements OnInit {
   }
 
   isValidField(field: string): boolean | null {
-    let hasErrors = this.formEdit.controls[field].errors;
-    let touched = this.formEdit.controls[field].touched;
-
-    return hasErrors && touched;
+    return this.formValidationService?.isValidField(field);
   }
 
   getFieldError(field: string): string | null {
-
-    if (!this.formEdit.controls[field]) return null;
-
-    const errors = this.formEdit.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return 'Este campo es requerido';
-
-          case 'email':
-          return 'Deve ser um email';
-
-        case 'minlength':
-          return `Mínimo ${errors['minlength'].requiredLength} caracters.`;
-      }
-    }
-
-    return null;
+    return this.formValidationService.getFieldError(field);
   }
 
   getRoles() {
     this.roleService.getRoles()
       .subscribe(res => this.roles = res);
+  }
+
+  setUserEdit(): void {
+    this.activatedRoute.params
+      .pipe(
+        switchMap(({ id }) => this.userService.findById(id)),
+      ).subscribe(
+        {
+          next: (user: User) => {
+            console.log(`Dados do findBYId ${user}`);
+            this.user = user;
+            this.formEdit.setValue({
+              username: user.username,
+              email: user.email,
+              role: user.role,
+            })
+          },
+          error: (error) => {
+            console.log(`ERROR : ${error}`);
+          }
+        }
+      )
   }
 
 }

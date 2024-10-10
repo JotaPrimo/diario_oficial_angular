@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { ListComponent, CreateComponent, EditComponent } from './pages/index';
+import { ListComponent, CreateComponent, EditComponent, SearchComponent } from './pages/index';
 
 @NgModule({
   imports: [
@@ -20,7 +20,8 @@ import { ListComponent, CreateComponent, EditComponent } from './pages/index';
     LayoutPageComponent,
     ListComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    SearchComponent
   ]
 })
 export class UsersModule { }

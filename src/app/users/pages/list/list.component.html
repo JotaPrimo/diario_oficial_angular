@@ -2,9 +2,11 @@
   <h1 class="h3 mb-3">Usuários</h1>
 </div>
 
+<users-search (search)="onSearch($event)" (clearFiltersEvent)="clearFilters()"></users-search>
+
 <shared-loading #loading *ngIf="loading;"></shared-loading>
 
-<div class="row" *ngIf="!loading">
+<div class="row mt-3" *ngIf="!loading">
   <div class="col-xl-12 col-sm-12 col-md-12">
     <div class="card">
       <div class="card-header">
@@ -50,12 +52,15 @@
                       <i class="fas fa-pencil fa-2x"></i>
                     </a>
 
-
-                    <i class="fas fa-sync fa-2x" (click)="ativarUsuario(user)"
-                      *ngIf="!isAtivo(user); else inativar_user" title="Ativar usuário"></i>
+                    <a href="javascript:void(0);" (click)="ativarUsuario(user)">
+                      <i class="fas fa-sync fa-2x" *ngIf="!isAtivo(user); else inativar_user" title="Ativar usuário">
+                      </i>
+                    </a>
 
                     <ng-template #inativar_user>
-                      <i class="fas fa-trash fa-2x" (click)="inativarUsuario(user)" title="Inativar usuário"></i>
+                      <a href="javascript:void(0);" (click)="inativarUsuario(user)">
+                        <i class="fas fa-trash fa-2x" (click)="inativarUsuario(user)" title="Inativar usuário"></i>
+                      </a>
                     </ng-template>
                   </td>
                 </tr>

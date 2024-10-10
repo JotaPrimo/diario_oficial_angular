@@ -1,0 +1,33 @@
+<form>
+  <div class="card">
+
+    <div class="card-header">
+      <h3>Formulário de busca</h3>
+      <p>Use os filtros para buscar registros</p>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-1 col-xl-1">
+          <label for="id">ID</label>
+          <input type="number" formControlName="id" class="form-control" placeholder="ID" id="id">
+        </div>
+        <div class="col">
+          <label for="nome">Nome</label>
+          <input type="text" formControlName="nome" class="form-control" id="nome" placeholder="Nome">
+        </div>
+        <div class="col">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" class="form-control" id="cnpj" placeholder="CNPJ">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex gap-1">
+    <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+    <button type="button" class="btn btn-sm btn-secondary ml-2">Limpar filtros</button>
+  </div>
+  
+</form>
