@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import {  } from 'ngx-mask'
 
 /** componentes */
 import { AppComponent } from './app.component';

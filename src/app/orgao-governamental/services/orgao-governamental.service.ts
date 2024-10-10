@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../../environments/environments';
 import { catchError, Observable } from 'rxjs';
-import { OrgaoGovernamental } from '../interfaces/orgao-governamental';
+import { OrgaoGovernamental, OrgaoGovernamentalResponse } from '../interfaces/orgao-governamental';
 import { BaseCrudService } from '../../shared/services/base-crud.service';
 
 @Injectable({
@@ -16,9 +16,9 @@ export class OrgaoGovernamentalService extends BaseCrudService {
   }
 
   // get all
-  getAll(params: string = ''): Observable<OrgaoGovernamental> {
+  getAll(params: string = ''): Observable<OrgaoGovernamentalResponse> {
     return this.httpClient
-      .get<OrgaoGovernamental>(`${this.apiUrl + params}`)
+      .get<OrgaoGovernamentalResponse>(`${this.apiUrl + params}`)
       .pipe(catchError((erro) => this.handleHttpError(erro)));
   }
 

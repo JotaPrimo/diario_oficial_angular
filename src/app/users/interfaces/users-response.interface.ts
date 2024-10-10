@@ -1,5 +1,9 @@
+import { Pageable } from "../../shared/interfaces/pageable.interface";
+import { Sort } from "../../shared/interfaces/sort.interface";
+import { User } from './user.interface';
+
 export interface UserReponsePaginated {
-  content:          Content[];
+  content:          User[];
   pageable:         Pageable;
   last:             boolean;
   totalElements:    number;
@@ -12,27 +16,4 @@ export interface UserReponsePaginated {
   empty:            boolean;
 }
 
-export interface Content {
-  id:            number;
-  username:      string;
-  email:         string;
-  role:          string;
-  statusUsuario: string;
-  createdAt:     string;
-  updatedAt:     string;
-}
 
-export interface Pageable {
-  pageNumber: number;
-  pageSize:   number;
-  sort:       Sort;
-  offset:     number;
-  paged:      boolean;
-  unpaged:    boolean;
-}
-
-export interface Sort {
-  empty:    boolean;
-  sorted:   boolean;
-  unsorted: boolean;
-}
