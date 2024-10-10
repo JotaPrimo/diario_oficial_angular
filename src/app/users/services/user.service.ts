@@ -7,25 +7,29 @@ import { environments } from '../../../environments/environments';
 import { ErrorHandlerService } from './error.service';
 import { FormGroup } from '@angular/forms';
 import { EnumStatusUsuario } from '../enums/status-usuario.enum';
+import { BaseCrudService } from '../../shared/services/base-crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends BaseCrudService {
 
   private apiUrl = environments.baseUrl + '/usuarios';
 
   constructor(
-    private http: HttpClient,
-    private errorService: ErrorHandlerService
-  ) { }
+    private http: HttpClient
+  ) {
+    super();
+  }
 
   getUsers(params: string = ''): Observable<UserReponsePaginated> {
 
     return this.http.get<UserReponsePaginated>(`${this.apiUrl + params}`).pipe(
       tap(res => {
         console.log(res);
-      })
+      },
+      catchError(errror => this.handleHttpError(errror))
+      )
     );
   }
 

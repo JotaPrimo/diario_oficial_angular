@@ -1,26 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../../environments/environments';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { OrgaoGovernamental } from '../interfaces/orgao-governamental';
+import { BaseCrudService } from '../../shared/services/base-crud.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class OrgaoGovernamentalService {
-
+export class OrgaoGovernamentalService extends BaseCrudService {
   private apiUrl = environments.baseUrl + '/orgao-governamentals';
 
-constructor(
-  private httpClient: HttpClient
-) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
-// get all
-getAll(params: string = ''): Observable<OrgaoGovernamental> {
-  console.log("OrgaoGovernamentalService getAll passei por aqui");
-  console.log(`${this.apiUrl + params}`);
-
-  return this.httpClient.get<OrgaoGovernamental>(`${this.apiUrl + params}`);
-}
+  // get all
+  getAll(params: string = ''): Observable<OrgaoGovernamental> {
+    return this.httpClient
+      .get<OrgaoGovernamental>(`${this.apiUrl + params}`)
+      .pipe(catchError((erro) => this.handleHttpError(erro)));
+  }
 
 }
