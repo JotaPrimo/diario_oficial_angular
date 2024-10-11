@@ -9,7 +9,7 @@ import { ErrorHandlerService } from '../../services/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../interfaces/user.interface';
 import { switchMap } from 'rxjs';
-import { ValidationService } from '../../../shared/services/validation.service';
+import { FormValidationService } from '../../../shared/services/form-validation.service';
 
 @Component({
   selector: 'users-edit',
@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
   public roles: Role[] = [];
   public errosApi: any;
   public user?: User;
-  public formValidationService: ValidationService = new ValidationService(new FormGroup({}));
+  public formValidationService: FormValidationService = new FormValidationService(new FormGroup({}));
 
 
   public formEdit: FormGroup = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class EditComponent implements OnInit {
     this.getRoles();
     this.formEdit.reset();
     this.setUserEdit();
-    this.formValidationService = new ValidationService(this.formEdit);
+    this.formValidationService = new FormValidationService(this.formEdit);
   }
 
   onSave(): void {

@@ -14,7 +14,7 @@ export class ValidationErrorHandler implements ErrorHandler {
 
   private extractValidationErrors(error: HttpErrorResponse): { [key: string]: string } {
     const validationErrors: { [key: string]: string } = {};
-    error.error.errors.forEach((err: { field: string; message: string }) => {
+    error.error?.errors.forEach((err: { field: string; message: string }) => {
       validationErrors[err.field] = err.message;
     });
     return validationErrors;

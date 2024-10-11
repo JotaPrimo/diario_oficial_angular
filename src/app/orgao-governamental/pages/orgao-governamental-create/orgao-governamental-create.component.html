@@ -19,10 +19,16 @@
           <div class="col">
             <label for="nome">Nome</label>
             <input type="text" formControlName="nome" class="form-control" name="nome" id="name" placeholder="Nome">
+            <span *ngIf="isValidField('nome')" class="text-danger">
+              {{ getFieldError('nome') }}
+            </span>
           </div>
           <div class="col">
             <label for="cnpj">CNPJ</label>
             <input type="text" formControlName="cnpj" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+            <span *ngIf="isValidField('cnpj')" class="text-danger">
+              {{ getFieldError('cnpj') }}
+            </span>
           </div>
         </div>
       </div>
@@ -40,5 +46,7 @@
   CNPJ : {{ form.value.cnpj | json }} <br>
   <hr>
 
-  form errors : {{ form.errors | json }}
+  form errors : {{ form.get('nome')?.errors| json }}
 </code>
+
+
