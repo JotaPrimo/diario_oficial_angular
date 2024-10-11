@@ -31,9 +31,14 @@ export class OrgaoGovernamentalService extends BaseCrudService {
 
   create(orgaoGovernamental: OrgaoGovernamentalCreateDTO): Observable<OrgaoGovernamental> {
     return this.httpClient.post<OrgaoGovernamental>(this.apiUrl, orgaoGovernamental)
-    .pipe(
-      catchError(error => this.handleHttpError(error))
-    );
+      .pipe(
+        catchError(error => this.handleHttpError(error))
+      );
+  }
+
+  findById(id: string): Observable<OrgaoGovernamental> {
+    return this.httpClient.get<OrgaoGovernamental>(`${this.apiUrl}/${id}`)
+      .pipe(catchError((error) => this.handleHttpError(error)));
   }
 
 }

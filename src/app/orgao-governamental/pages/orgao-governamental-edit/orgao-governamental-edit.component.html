@@ -1,3 +1,45 @@
-<p>
-  orgao-governamental-edit works!
-</p>
+<div class="d-flex justify-content-between">
+  <h1 class="h3 mb-3"></h1>
+</div>
+
+
+<div class="row">
+  <form action="#" [formGroup]="form" (submit)="handleSave()">
+    <div class="card">
+      <div class="card-header">Listagem de recursos</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <label for="nome">Nome</label>
+            <input type="text" formControlName="nome" class="form-control" name="nome" id="name" placeholder="Nome">
+            <span *ngIf="isValidField('nome')" class="text-danger">
+              {{ getFieldError('nome') }}
+            </span>
+          </div>
+          <div class="col">
+            <label for="cnpj">CNPJ</label>
+            <input type="text" formControlName="cnpj" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+            <span *ngIf="isValidField('cnpj')" class="text-danger">
+              {{ getFieldError('cnpj') }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mt-2">
+      <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>
+
+<code>
+  Form valid: {{ form.valid | json }} <br>
+  Form Value : {{ form.value | json }} <br>
+  Nome : {{ form.value.nome | json }} <br>
+  CNPJ : {{ form.value.cnpj | json }} <br>
+  <hr>
+
+  form errors : {{ form.get('nome')?.errors| json }}
+</code>
+
+
