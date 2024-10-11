@@ -4,23 +4,18 @@ import { FormGroup } from '@angular/forms';
 @Injectable({ providedIn: 'root' })
 export class FormValidationService {
 
-  private form: FormGroup;
 
-  constructor(form: FormGroup) {
-    this.form = form
-  }
-
-  isValidField(field: string): boolean | null {
-    let hasErrors = this.form.controls[field].errors;
-    let touched = this.form.controls[field].touched;
+  isValidField(field: string, form: FormGroup): boolean | null {
+    let hasErrors = form.controls[field].errors;
+    let touched = form.controls[field].touched;
 
     return hasErrors && touched;
   }
 
-  getFieldError(field: string): string | null {
-    if (!this.form.controls[field]) return null;
+  getFieldError(field: string, form: FormGroup): string | null {
+    if (!form.controls[field]) return null;
 
-    const errors = this.form.controls[field].errors || {};
+    const errors = form.controls[field].errors || {};
 
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -41,13 +36,12 @@ export class FormValidationService {
     return null;
   }
 
-  verificarFormInValidOnSubmit(): boolean {
-    if (this.form.invalid) {
+  verificarFormInValidOnSubmit(form: FormGroup): boolean {
+    if (form.invalid) {
       // caso form seja invalido bloquear requisicao
-      this.form.markAllAsTouched();
+      form.markAllAsTouched();
       return true;
     }
     return false;
   }
-
 }

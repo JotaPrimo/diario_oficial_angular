@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 /** interfaces */
-import { OrgaoGovernamental, OrgaoGovernamentalResponse } from '../../interfaces/orgao-governamental';
 import { OrgaoGovernamentalService } from '../../services/orgao-governamental.service';
+import { OrgaoGovernamental, OrgaoGovernamentalResponse } from '../../interfaces';
 
 @Component({
   selector: 'orgao-governamental-list',
@@ -10,7 +10,7 @@ import { OrgaoGovernamentalService } from '../../services/orgao-governamental.se
   styleUrls: ['./orgao-governamental-list.component.css'],
 })
 export class ListComponent implements OnInit {
-  
+
   public orgaos: OrgaoGovernamental[] = [];
 
   constructor(private orgaoGovernamentalService: OrgaoGovernamentalService) {}

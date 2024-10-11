@@ -8,6 +8,8 @@ export class GenericErrorHandler implements ErrorHandler {
   }
 
   handle(error: HttpErrorResponse): Observable<never> {
+    console.log(error);
+
     const errorMessage = error.error?.message || 'Erro desconhecido';
     return throwError(() => ({ type: 'generic', message: errorMessage }));
   }
