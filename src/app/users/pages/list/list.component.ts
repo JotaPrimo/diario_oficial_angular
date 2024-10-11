@@ -132,4 +132,8 @@ export class ListComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  trackByUser(index: number, user: User): number {
+    return user.id;
+  }
+
 }

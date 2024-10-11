@@ -13,7 +13,7 @@
             <label for="name">Tipo</label>
             <select formControlName="tipo" class="form-select">
               <option value="">Selecione</option>
-              <option *ngFor="let item of getTiposOrgaos()" [value]="item">{{item}}</option>
+              <option *ngFor="let orgao of getTiposOrgaos();" [value]="orgao">{{orgao}}</option>
             </select>
           </div>
           <div class="col">
