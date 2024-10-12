@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'list', component: ListComponent, data: {name: 'ListComponent'} },
       { path: 'create', component: CreateComponent, data: {name: 'CreateComponent'} },
       { path: 'edit/:id', component: EditComponent, data: {name: 'EditComponent'} },
+      { path: 'show/:id', component: EditComponent, data: {name: 'ShowComponent'} },
       { path: '**', redirectTo: 'list' },
     ]
   }

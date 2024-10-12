@@ -13,16 +13,22 @@
             <label for="name">Tipo</label>
             <select formControlName="tipo" class="form-select">
               <option value="">Selecione</option>
-              <option *ngFor="let item of getTiposOrgaos()" [value]="item">{{item}}</option>
+              <option *ngFor="let orgao of getTiposOrgaos();" [value]="orgao">{{orgao}}</option>
             </select>
           </div>
           <div class="col">
             <label for="nome">Nome</label>
             <input type="text" formControlName="nome" class="form-control" name="nome" id="name" placeholder="Nome">
+            <span *ngIf="isValidField('nome')" class="text-danger">
+              {{ getFieldError('nome') }}
+            </span>
           </div>
           <div class="col">
             <label for="cnpj">CNPJ</label>
             <input type="text" formControlName="cnpj" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+            <span *ngIf="isValidField('cnpj')" class="text-danger">
+              {{ getFieldError('cnpj') }}
+            </span>
           </div>
         </div>
       </div>
@@ -38,4 +44,9 @@
   Form Value : {{ form.value | json }} <br>
   Nome : {{ form.value.nome | json }} <br>
   CNPJ : {{ form.value.cnpj | json }} <br>
+  <hr>
+
+  form errors : {{ form.get('nome')?.errors| json }}
 </code>
+
+

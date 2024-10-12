@@ -32,7 +32,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of users; index as i">
+                <tr *ngFor="let user of users; trackBy: trackByUser">
                   <td>{{ user.id }}</td>
                   <td>{{ user.username }}</td>
                   <td>{{ user.email }}</td>

@@ -9,7 +9,7 @@ import { ApiError } from '../../../shared/interfaces/api-error.interface';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from '../../services/error.service';
 import { ExceptionBackEnd } from '../../../shared/interfaces/exception-back-end.interface';
-import { ValidationService } from '../../../shared/services/validation.service';
+import { FormValidationService } from '../../../shared/services/form-validation.service';
 
 @Component({
   selector: 'users-create',
@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
 
   public roles: Role[] = [];
   public errosApi: any;
-  public formValidationService: ValidationService;
+  public formValidationService: FormValidationService;
 
 
   public formCreate: FormGroup = this.formBuilder.group({
@@ -37,7 +37,7 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private errorService: ErrorHandlerService
   ) {
-    this.formValidationService = new ValidationService(this.formCreate);
+    this.formValidationService = new FormValidationService(this.formCreate);
   }
 
   ngOnInit() {
@@ -80,7 +80,6 @@ export class CreateComponent implements OnInit {
   isValidField(field: string): boolean | null {
     return this.formValidationService.isValidField(field);
   }
-
 
   getFieldError(field: string): string | null {
     return this.formValidationService.getFieldError(field);

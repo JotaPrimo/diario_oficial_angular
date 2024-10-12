@@ -23,7 +23,7 @@ const routes: Routes = [
     canMatch: [AuthGuard],
   },
   {
-    path: 'orgao-governamental',
+    path: 'orgao-governamentals',
     loadChildren: () => import('./orgao-governamental/orgao-governamental.module').then(m => m.OrgaoGovernamentalModule),
     // canActivate: [PublicGuard],
     // canMatch: [PublicGuard],

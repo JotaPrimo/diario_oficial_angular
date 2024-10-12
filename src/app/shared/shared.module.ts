@@ -7,6 +7,7 @@ import { NavSidebarComponent } from './components/nav-sidebar';
 import { NavSuperiorComponent } from './components/nav-superior';
 import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     NavSuperiorComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     CardBodyComponent,
