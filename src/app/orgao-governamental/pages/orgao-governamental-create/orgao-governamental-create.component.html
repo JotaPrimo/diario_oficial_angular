@@ -24,8 +24,8 @@
             </span>
           </div>
           <div class="col">
-            <label for="cnpj">CNPJ</label>
-            <input type="text" formControlName="cnpj" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+            <label for="cnpj">CNPJ mask</label>
+            <input type="text" mask="00.000.000/0000-00" formControlName="cnpj" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
             <span *ngIf="isValidField('cnpj')" class="text-danger">
               {{ getFieldError('cnpj') }}
             </span>

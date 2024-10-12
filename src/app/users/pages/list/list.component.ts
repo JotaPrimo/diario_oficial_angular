@@ -13,6 +13,7 @@ import { UserReponsePaginated } from '../../interfaces/users-response.interface'
 })
 export class ListComponent implements OnInit, OnDestroy {
 
+  public reponsePaginated: UserReponsePaginated | any = null;
   public users: User[] = [];
   public loading: boolean = false;
 
@@ -34,8 +35,10 @@ export class ListComponent implements OnInit, OnDestroy {
 
     this.userService.getUsers().subscribe(
       {
-        next: (data) => {
+        next: (data: UserReponsePaginated) => {
+          this.reponsePaginated = data;
           this.users = data.content
+          data.numberOfElements
         },
         error: (error) => {
           this.users = [];
@@ -134,6 +137,22 @@ export class ListComponent implements OnInit, OnDestroy {
 
   trackByUser(index: number, user: User): number {
     return user.id;
+  }
+
+  changePageOfList(page: number): void {
+    const pageNumber: string = `?page=${page}`;
+    this.userService.getUsers(pageNumber)
+      .pipe()
+      .subscribe({
+        next: (response: UserReponsePaginated) => {
+          console.log(response);
+          this.reponsePaginated = response;
+          this.users = response.content;
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
   }
 
 }

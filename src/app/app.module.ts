@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 /** Services */
 import { CookieService } from 'ngx-cookie-service';
 import { TokenService } from './auth/services/token.service';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -24,11 +25,13 @@ import { TokenService } from './auth/services/token.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
     CookieService,
     TokenService,
+    provideNgxMask(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
