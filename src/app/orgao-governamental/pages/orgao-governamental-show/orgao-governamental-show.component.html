@@ -1,3 +1,206 @@
-<p>
-  orgao-governamental-show works!
-</p>
+<h3>
+  Prefeitura Municipal de Terenos
+</h3>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="diario-tab" data-bs-toggle="tab" data-bs-target="#diario-tab-pane" type="button"
+      role="tab" aria-controls="diario-tab-pane" aria-selected="true">
+      DIÁRIOS
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="arquivos-tab" data-bs-toggle="tab" data-bs-target="#arquivos-tab-pane" type="button"
+      role="tab" aria-controls="arquivos-tab-pane" aria-selected="false">
+      ARQUIVOS
+    </button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+
+  <!-- Aba de diários : Inicio -->
+  <div class="tab-pane fade show active" id="diario-tab-pane" role="tabpanel" aria-labelledby="diario-tab" tabindex="0">
+    <div class="row mt-3">
+      <div class="col-xl-12 col-sm-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listando diários anexados</div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-xl-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width:5%;">#ID</th>
+                      <th style="width:20%;">Username</th>
+                      <th style="width:25%">Email</th>
+                      <th style="width:15%">Role</th>
+                      <th style="width:15%">Status Usuário</th>
+                      <th style="width:15%">Created At</th>
+                      <th style="width:25%">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-2 justify-content-between">
+              <div class="col-md-auto me-auto ">
+                <div class="dt-info" aria-live="polite" id="datatables-reponsive_info" role="status">
+                  Exibindo
+                  to
+                  of elementos</div>
+              </div>
+              <div class="col-md-auto ms-auto ">
+                <div class="dt-paging paging_full_numbers">
+                  <ul class="pagination">
+                    <li class="dt-paging-button page-item disabled">
+                      <a class="page-link first" aria-controls="datatables-reponsive" aria-disabled="true"
+                        aria-label="First" data-dt-idx="first" tabindex="-1">«</a>
+                    </li>
+                    <li class="dt-paging-button page-item disabled"><a class="page-link previous"
+                        aria-controls="datatables-reponsive" aria-disabled="true" aria-label="Previous"
+                        data-dt-idx="previous" tabindex="-1">‹</a></li>
+
+                    <li class="dt-paging-button page-item">
+                      <button class="page-link" aria-controls="datatables-reponsive" aria-current="page" data-dt-idx="0"
+                        tabindex="0">1
+                      </button>
+                    </li>
+
+                    <li class="dt-paging-button page-item">
+                      <button class="page-link" aria-controls="datatables-reponsive" data-dt-idx="1"
+                        tabindex="0">2</button>
+                    </li>
+
+                    <li class="dt-paging-button page-item">
+                      <button href="#" class="page-link" aria-controls="datatables-reponsive" data-dt-idx="2"
+                        tabindex="0">3</button>
+                    </li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="3" tabindex="0">4</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="4" tabindex="0">5</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="5" tabindex="0">6</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link next"
+                        aria-controls="datatables-reponsive" aria-label="Next" data-dt-idx="next" tabindex="0">›</a>
+                    </li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link last"
+                        aria-controls="datatables-reponsive" aria-label="Last" data-dt-idx="last" tabindex="0">»</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Aba de diários : Fim -->
+
+  <!-- Aba de arquivos : Inicio -->
+  <div class="tab-pane fade" id="arquivos-tab-pane" role="tabpanel" aria-labelledby="arquivos-tab" tabindex="0">
+    <div class="row mt-3">
+      <div class="col-xl-12 col-sm-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Listando arquivos anexados</div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-xl-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width:5%;">#ID</th>
+                      <th style="width:20%;">Username</th>
+                      <th style="width:25%">Email</th>
+                      <th style="width:15%">Role</th>
+                      <th style="width:15%">Status Usuário</th>
+                      <th style="width:15%">Created At</th>
+                      <th style="width:25%">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-2 justify-content-between">
+              <div class="col-md-auto me-auto ">
+                <div class="dt-info" aria-live="polite" id="datatables-reponsive_info" role="status">
+                  Exibindo
+                  to
+                  of elementos</div>
+              </div>
+              <div class="col-md-auto ms-auto ">
+                <div class="dt-paging paging_full_numbers">
+                  <ul class="pagination">
+                    <li class="dt-paging-button page-item disabled">
+                      <a class="page-link first" aria-controls="datatables-reponsive" aria-disabled="true"
+                        aria-label="First" data-dt-idx="first" tabindex="-1">«</a>
+                    </li>
+                    <li class="dt-paging-button page-item disabled"><a class="page-link previous"
+                        aria-controls="datatables-reponsive" aria-disabled="true" aria-label="Previous"
+                        data-dt-idx="previous" tabindex="-1">‹</a></li>
+
+                    <li class="dt-paging-button page-item">
+                      <button class="page-link" aria-controls="datatables-reponsive" aria-current="page" data-dt-idx="0"
+                        tabindex="0">1
+                      </button>
+                    </li>
+
+                    <li class="dt-paging-button page-item">
+                      <button class="page-link" aria-controls="datatables-reponsive" data-dt-idx="1"
+                        tabindex="0">2</button>
+                    </li>
+
+                    <li class="dt-paging-button page-item">
+                      <button href="#" class="page-link" aria-controls="datatables-reponsive" data-dt-idx="2"
+                        tabindex="0">3</button>
+                    </li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="3" tabindex="0">4</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="4" tabindex="0">5</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link"
+                        aria-controls="datatables-reponsive" data-dt-idx="5" tabindex="0">6</a></li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link next"
+                        aria-controls="datatables-reponsive" aria-label="Next" data-dt-idx="next" tabindex="0">›</a>
+                    </li>
+                    <li class="dt-paging-button page-item"><a href="#" class="page-link last"
+                        aria-controls="datatables-reponsive" aria-label="Last" data-dt-idx="last" tabindex="0">»</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Aba de arquivos : Fim -->
+</div>

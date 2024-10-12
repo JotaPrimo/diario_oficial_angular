@@ -40,8 +40,11 @@
                     {{ orgao.updated_at }}
                   </td>
                   <td class="d-flex gap-1">
-                    <a href="#" [routerLink]="['/orgao-governamentals/edit/', orgao.id]">
-                      <i class="fas fa-pencil fa-2x"></i>
+                    <a href="#" title="Ver" class="btn btn-sm btn-info" [routerLink]="['/orgao-governamentals/show/', orgao.id]">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="#" title="Editar" class="btn btn-sm btn-warning" [routerLink]="['/orgao-governamentals/edit/', orgao.id]">
+                      <i class="fas fa-pencil"></i>
                     </a>
                   </td>
                 </tr>
