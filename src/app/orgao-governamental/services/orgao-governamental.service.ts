@@ -10,7 +10,7 @@ import { BaseCrudService } from '../../shared/services/base-crud.service';
 // Interfaces
 import { OrgaoGovernamental } from '../interfaces/orgao-governamental.interface';
 import { OrgaoGovernamentalCreateDTO } from '../interfaces/orgao-governamental-create-dt.interface';
-import { OrgaoGovernamentalResponse } from './../interfaces/orgao-governamental-response.interface';
+import { OrgaoGovernamentalResponse } from '../interfaces/orgao-governamental-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class OrgaoGovernamentalService extends BaseCrudService {
       );
   }
 
-  findById(id: string): Observable<OrgaoGovernamental> {
+  findById(id: number | string): Observable<OrgaoGovernamental> {
     return this.httpClient.get<OrgaoGovernamental>(`${this.apiUrl}/${id}`)
       .pipe(catchError((error) => this.handleHttpError(error)));
   }

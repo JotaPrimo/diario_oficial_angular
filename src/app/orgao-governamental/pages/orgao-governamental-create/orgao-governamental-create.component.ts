@@ -67,7 +67,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       {
         next: (res) => {
           this.messageService.success("Registro salvo com sucesso");
-          this.router.navigateByUrl('/orgao-governamental');
+          this.router.navigateByUrl('/orgao-governamentals');
 
         },
         error: (e) => {
@@ -110,5 +110,4 @@ export class CreateComponent implements OnInit, OnDestroy {
   getFieldError(field: string): string | null {
     return this.formValidationService.getFieldError(field);
   }
-
 }

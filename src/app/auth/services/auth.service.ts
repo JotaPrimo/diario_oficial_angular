@@ -8,7 +8,7 @@ import { ApiPaths } from '../../constants/api-path';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8082/api/v1/auth';
+  private apiUrl = 'http://localhost:8080/api/v1/auth';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
@@ -16,8 +16,11 @@ export class AuthService {
     console.log(`${ApiPaths.users.list}`);
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
     return this.http.post<any>(this.apiUrl, credentials, { headers }).pipe(
       tap((response) => {
+        console.log(response.token);
+
         const token = response.token;
         if (token) {
           const expirationDate = new Date();
