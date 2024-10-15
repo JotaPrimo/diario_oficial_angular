@@ -6,6 +6,8 @@ import { OrgaoGovernamentalService } from '../../services/orgao-governamental.se
 import { MessageService } from '../../../shared/services/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrgaoGovernamental, OrgaoGovernamentalCreateDTO } from '../../interfaces';
+import { OrgaoGovernamentalUpdateDTO } from '../../interfaces/dto/orgao-governamental-update-dt.interface';
+
 
 @Component({
   selector: 'app-orgao-governamental-edit',
@@ -30,7 +32,7 @@ export class EditComponent implements OnInit, OnDestroy {
     private service: OrgaoGovernamentalService,
     private messageService: MessageService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     this.formValidationService = new FormValidationService(this.form);
   }
@@ -44,7 +46,18 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   handleSave(): void {
+    console.log("handleSave");
 
+    const orgaoToUpdate: OrgaoGovernamentalUpdateDTO = this.form.value;
+    this.service.update(this.orgao.id, orgaoToUpdate)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   getTiposOrgaos() {
@@ -62,17 +75,17 @@ export class EditComponent implements OnInit, OnDestroy {
   getUser() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    if (id) {
-      this.service.findById(id).subscribe({
-        next: (res: OrgaoGovernamental) => {
-          this.populateForm(res);
-        },
-      });
+    if (id == null) {
+      this.messageService.error("Registro não encontrado");
+      this.router.navigateByUrl("/orgao-governamentals/list");
       return;
     }
 
-    this.messageService.error("Registro não encontrado");
-    this.router.navigateByUrl("/orgao-governamentals/list");
+    this.service.findById(id).subscribe({
+      next: (res: OrgaoGovernamental) => {
+        this.populateForm(res);
+      },
+    });
     return;
   }
 
@@ -80,5 +93,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.form.get('nome')?.setValue(orgao.nome);
     this.form.get('cnpj')?.setValue(orgao.cnpj);
   }
+
+
 
 }

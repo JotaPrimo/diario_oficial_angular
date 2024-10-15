@@ -1,5 +1,5 @@
-import { Pageable, Sort } from "../../shared/interfaces";
-import { OrgaoGovernamental } from "./orgao-governamental.interface";
+import { Pageable, Sort } from "../../../shared/interfaces";
+import { OrgaoGovernamental } from ".././orgao-governamental.interface";
 
 export interface OrgaoGovernamentalResponse {
   content:          OrgaoGovernamental[];

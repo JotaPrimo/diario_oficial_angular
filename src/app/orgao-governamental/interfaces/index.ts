@@ -1,3 +1,3 @@
 export * from './orgao-governamental.interface';
-export * from './orgao-governamental-create-dt.interface';
-export * from './orgao-governamental-response.interface';
+export * from '../interfaces/dto/orgao-governamental-create-dt.interface';
+export * from '../interfaces/dto/orgao-governamental-response.interface';

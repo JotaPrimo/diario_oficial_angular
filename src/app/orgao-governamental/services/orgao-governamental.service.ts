@@ -1,5 +1,5 @@
 /** Modules */
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../../environments/environments';
 import { catchError, Observable } from 'rxjs';
@@ -9,8 +9,8 @@ import { BaseCrudService } from '../../shared/services/base-crud.service';
 
 // Interfaces
 import { OrgaoGovernamental } from '../interfaces/orgao-governamental.interface';
-import { OrgaoGovernamentalCreateDTO } from '../interfaces/orgao-governamental-create-dt.interface';
-import { OrgaoGovernamentalResponse } from '../interfaces/orgao-governamental-response.interface';
+import { OrgaoGovernamentalUpdateDTO } from '../interfaces/dto/orgao-governamental-update-dt.interface';
+import { OrgaoGovernamentalCreateDTO, OrgaoGovernamentalResponse } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +39,11 @@ export class OrgaoGovernamentalService extends BaseCrudService {
   findById(id: number | string): Observable<OrgaoGovernamental> {
     return this.httpClient.get<OrgaoGovernamental>(`${this.apiUrl}/${id}`)
       .pipe(catchError((error) => this.handleHttpError(error)));
+  }
+
+  update(id: string, orgaoGov: OrgaoGovernamentalUpdateDTO): Observable<OrgaoGovernamentalUpdateDTO> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch<OrgaoGovernamentalUpdateDTO>(`${this.apiUrl}/${id}`, orgaoGov, { headers });
   }
 
 }
