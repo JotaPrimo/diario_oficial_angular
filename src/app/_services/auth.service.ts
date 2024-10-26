@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError, of, tap, throwError } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { ApiPaths } from '../../constants/api-path';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {catchError, Observable, of, tap, throwError} from 'rxjs';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,6 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   authenticate(credentials: any): Observable<any> {
-    console.log(`${ApiPaths.users.list}`);
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

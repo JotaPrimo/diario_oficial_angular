@@ -12,7 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 /** Services */
 import { CookieService } from 'ngx-cookie-service';
-import { TokenService } from './auth/services/token.service';
+import { TokenService } from './_services/token.service';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 

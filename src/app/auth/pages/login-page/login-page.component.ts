@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../_services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { Token } from '../../interfaces/login-response.interface';
+import { Token } from '../../../_interfaces/login-response.interface';
 import { Router } from '@angular/router';
-import { ApiPaths } from '../../../constants/api-path';
 import { MessageService } from '../../../shared/services/message.service';
 
 @Component({

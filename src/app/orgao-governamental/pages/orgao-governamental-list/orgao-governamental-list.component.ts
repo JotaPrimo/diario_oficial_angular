@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 /** interfaces */
-import { OrgaoGovernamentalService } from '../../services/orgao-governamental.service';
-import { OrgaoGovernamental, OrgaoGovernamentalResponse } from '../../interfaces';
+import {OrgaoGovernamentalService} from '../../../_services/orgao-governamental.service';
+import {OrgaoGovernamental} from "../../../_interfaces/orgao-governamental.interface";
+import {OrgaoGovernamentalPaginated} from "../../dto";
 
 @Component({
   selector: 'orgao-governamental-list',
@@ -11,7 +12,7 @@ import { OrgaoGovernamental, OrgaoGovernamentalResponse } from '../../interfaces
 })
 export class ListComponent implements OnInit {
 
-  public orgaos: OrgaoGovernamental[] = [];
+  orgaos!: OrgaoGovernamental[];
 
   constructor(private orgaoGovernamentalService: OrgaoGovernamentalService) {}
 
@@ -21,7 +22,7 @@ export class ListComponent implements OnInit {
 
   getOrgaos(): void {
     this.orgaoGovernamentalService.getAll().subscribe({
-      next: (response: OrgaoGovernamentalResponse) => {
+      next: (response: OrgaoGovernamentalPaginated) => {
         console.log(response);
         this.orgaos = response.content;
       },

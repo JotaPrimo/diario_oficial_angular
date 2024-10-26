@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from '../../interfaces/role.interface';
+import { Role } from '../../../_interfaces/role.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RoleService } from '../../services/role.service';
+import { RoleService } from '../../../_services/role.service';
 import { MessageService } from '../../../shared/services/message.service';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from '../../services/error.service';
+import { ErrorHandlerService } from '../../../_services/error.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { User } from '../../interfaces/user.interface';
+import { User } from '../../../_interfaces/user.interface';
 import { switchMap } from 'rxjs';
 import { FormValidationService } from '../../../shared/services/form-validation.service';
 

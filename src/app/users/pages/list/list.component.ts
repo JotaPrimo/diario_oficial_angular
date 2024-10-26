@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { User } from '../../interfaces/user.interface';
+import { UserService } from '../../../_services/user.service';
+import { User } from '../../../_interfaces/user.interface';
 import { MessageService } from '../../../shared/services/message.service';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserReponsePaginated } from '../../interfaces/users-response.interface';
+import { UserReponsePaginated } from '../../../_interfaces/users-response.interface';
 
 @Component({
   selector: 'users-list',

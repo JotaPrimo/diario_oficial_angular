@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { RoleService } from '../../services/role.service';
-import { Role } from '../../interfaces/role.interface';
-import { EnumStatusUsuario } from '../../enums/status-usuario.enum';
+import { RoleService } from '../../../_services/role.service';
+import { Role } from '../../../_interfaces/role.interface';
+import { EnumStatusUsuario } from '../../../_enums/status-usuario.enum';
 
 @Component({
   selector: 'users-search',

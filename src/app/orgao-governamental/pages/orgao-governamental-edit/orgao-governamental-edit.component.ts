@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormValidationService } from '../../../shared/services/form-validation.service';
-import { Subject } from 'rxjs';
-import { OrgaoGovernamentalService } from '../../services/orgao-governamental.service';
-import { MessageService } from '../../../shared/services/message.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrgaoGovernamental, OrgaoGovernamentalCreateDTO } from '../../interfaces';
-import { OrgaoGovernamentalUpdateDTO } from '../../interfaces/dto/orgao-governamental-update-dt.interface';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormValidationService} from '../../../shared/services/form-validation.service';
+import {Subject} from 'rxjs';
+import {OrgaoGovernamentalService} from '../../../_services/orgao-governamental.service';
+import {MessageService} from '../../../shared/services/message.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {OrgaoGovernamental} from "../../../_interfaces/orgao-governamental.interface";
+import {OrgaoGovernamentalResponseDto} from "../../dto/orgao-governamental-response.dto.interface";
+import {OrgaoGovernamentalUpdateDto} from "../../dto";
 
 
 @Component({
@@ -48,10 +49,10 @@ export class EditComponent implements OnInit, OnDestroy {
   handleSave(): void {
     console.log("handleSave");
 
-    const orgaoToUpdate: OrgaoGovernamentalUpdateDTO = this.form.value;
+    const orgaoToUpdate: OrgaoGovernamentalUpdateDto = this.form.value;
     this.service.update(this.orgao.id, orgaoToUpdate)
     .subscribe({
-      next: (response) => {
+      next: (response: OrgaoGovernamentalResponseDto) => {
         console.log(response);
       },
       error: (error) => {
@@ -60,7 +61,7 @@ export class EditComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTiposOrgaos() {
+  getTiposOrgaos(): string[] {
     return this.tiposOrgaos;
   }
 
@@ -72,8 +73,8 @@ export class EditComponent implements OnInit, OnDestroy {
     return this.formValidationService.getFieldError(field);
   }
 
-  getUser() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+  getUser(): void {
+    const id: string | null = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id == null) {
       this.messageService.error("Registro não encontrado");
@@ -82,7 +83,7 @@ export class EditComponent implements OnInit, OnDestroy {
     }
 
     this.service.findById(id).subscribe({
-      next: (res: OrgaoGovernamental) => {
+      next: (res: OrgaoGovernamental): void => {
         this.populateForm(res);
       },
     });
@@ -93,7 +94,4 @@ export class EditComponent implements OnInit, OnDestroy {
     this.form.get('nome')?.setValue(orgao.nome);
     this.form.get('cnpj')?.setValue(orgao.cnpj);
   }
-
-
-
 }

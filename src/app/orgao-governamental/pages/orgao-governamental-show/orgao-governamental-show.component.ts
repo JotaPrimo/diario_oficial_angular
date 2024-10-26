@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrgaoGovernamental } from '../../interfaces';
-import { OrgaoGovernamentalService } from '../../services/orgao-governamental.service';
+import { OrgaoGovernamentalService } from '../../../_services/orgao-governamental.service';
 import { MessageService } from '../../../shared/services/message.service';
+import {OrgaoGovernamental} from "../../../_interfaces/orgao-governamental.interface";
 
 @Component({
   selector: 'app-orgao-governamental-show',
@@ -11,8 +11,7 @@ import { MessageService } from '../../../shared/services/message.service';
 })
 export class ShowComponent implements OnInit {
 
-  public orgaoGov: OrgaoGovernamental | undefined;
-
+  orgaoGov!: OrgaoGovernamental;
 
   constructor(
     private activatedRoute: ActivatedRoute,

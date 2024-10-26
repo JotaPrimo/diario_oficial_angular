@@ -9,7 +9,7 @@ import {
   UrlSegment,
 } from '@angular/router';
 import {  Observable, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 
 @Injectable({
   providedIn: 'root',

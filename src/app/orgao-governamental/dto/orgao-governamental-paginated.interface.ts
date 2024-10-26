@@ -1,7 +1,7 @@
-import { Pageable, Sort } from "../../../shared/interfaces";
-import { OrgaoGovernamental } from ".././orgao-governamental.interface";
+import { Pageable, Sort } from "../../shared/interfaces";
+import { OrgaoGovernamental } from "../../_interfaces/orgao-governamental.interface";
 
-export interface OrgaoGovernamentalResponse {
+export interface OrgaoGovernamentalPaginated {
   content:          OrgaoGovernamental[];
   pageable:         Pageable;
   last:             boolean;

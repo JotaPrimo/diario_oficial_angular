@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/user.interface';
+import { User } from '../_interfaces/user.interface';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { UserReponsePaginated } from '../interfaces/users-response.interface';
-import { environments } from '../../../environments/environments';
+import { UserReponsePaginated } from '../_interfaces/users-response.interface';
+import { environments } from '../../environments/environments';
 import { ErrorHandlerService } from './error.service';
 import { FormGroup } from '@angular/forms';
-import { EnumStatusUsuario } from '../enums/status-usuario.enum';
-import { BaseCrudService } from '../../shared/services/base-crud.service';
+import { EnumStatusUsuario } from '../_enums/status-usuario.enum';
+import { BaseCrudService } from '../shared/services/base-crud.service';
 
 @Injectable({
   providedIn: 'root'

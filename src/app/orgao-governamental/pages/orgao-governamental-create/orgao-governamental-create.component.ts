@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
-import { OrgaoGovernamentalService } from '../../services/orgao-governamental.service';
-import { OrgaoGovernamentalCreateDTO } from '../../interfaces';
-import { MessageService } from '../../../shared/services/message.service';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { FormValidationService } from '../../../shared/services/form-validation.service';
+import {OrgaoGovernamentalService} from '../../../_services/orgao-governamental.service';
+import {MessageService} from '../../../shared/services/message.service';
+import {Subject} from 'rxjs';
+import {Router} from '@angular/router';
+import {FormValidationService} from '../../../shared/services/form-validation.service';
+import {OrgaoGovernamentalCreateDto} from "../../dto";
 
 
 @Component({
@@ -88,8 +88,8 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.form.get('nome')?.setValue(`${novoValor} `);
   }
 
-  createEntityFromForm(): OrgaoGovernamentalCreateDTO {
-    const orgaoToSave: OrgaoGovernamentalCreateDTO = {
+  createEntityFromForm(): OrgaoGovernamentalCreateDto {
+    const orgaoToSave: OrgaoGovernamentalCreateDto = {
       nome: this.form.value.nome,
       cnpj: this.form.value.cnpj
     }
@@ -97,7 +97,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     return orgaoToSave;
   }
 
-  verificarFormValidOnSubmit() {
+  verificarFormValidOnSubmit(): void {
     if (this.formValidationService.verificarFormInValidOnSubmit()) {
       this.messageService.info("Preencha todos os dados corretamente");
     }

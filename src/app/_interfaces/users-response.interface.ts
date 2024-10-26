@@ -1,5 +1,5 @@
-import { Pageable } from "../../shared/interfaces/pageable.interface";
-import { Sort } from "../../shared/interfaces/sort.interface";
+import { Pageable } from "../shared/interfaces/pageable.interface";
+import { Sort } from "../shared/interfaces/sort.interface";
 import { User } from './user.interface';
 
 export interface UserReponsePaginated {
